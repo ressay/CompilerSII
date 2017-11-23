@@ -37,7 +37,7 @@ public class TinyLangageSIILexer extends Lexer {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'compil'", "'('", "')'", "'{'", "'}'", "';'", "','", "'='", "'intCompil'", 
-		"'floatcompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
+		"'floatCompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
 		"'else'", "'endif'", null, "'+'", "'-'", "'*'", "'/'", "'>'", "'<'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
@@ -139,7 +139,7 @@ public class TinyLangageSIILexer extends Lexer {
 		"\2\2I\f\3\2\2\2JK\7=\2\2K\16\3\2\2\2LM\7.\2\2M\20\3\2\2\2NO\7?\2\2O\22"+
 		"\3\2\2\2PQ\7k\2\2QR\7p\2\2RS\7v\2\2ST\7E\2\2TU\7q\2\2UV\7o\2\2VW\7r\2"+
 		"\2WX\7k\2\2XY\7n\2\2Y\24\3\2\2\2Z[\7h\2\2[\\\7n\2\2\\]\7q\2\2]^\7c\2\2"+
-		"^_\7v\2\2_`\7e\2\2`a\7q\2\2ab\7o\2\2bc\7r\2\2cd\7k\2\2de\7n\2\2e\26\3"+
+		"^_\7v\2\2_`\7E\2\2`a\7q\2\2ab\7o\2\2bc\7r\2\2cd\7k\2\2de\7n\2\2e\26\3"+
 		"\2\2\2fg\7u\2\2gh\7e\2\2hi\7c\2\2ij\7p\2\2jk\7e\2\2kl\7q\2\2lm\7o\2\2"+
 		"mn\7r\2\2no\7k\2\2op\7n\2\2p\30\3\2\2\2qr\7r\2\2rs\7t\2\2st\7k\2\2tu\7"+
 		"p\2\2uv\7v\2\2vw\7e\2\2wx\7q\2\2xy\7o\2\2yz\7r\2\2z{\7k\2\2{|\7n\2\2|"+

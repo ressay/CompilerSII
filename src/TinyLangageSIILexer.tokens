@@ -35,7 +35,7 @@ STR=28
 ','=7
 '='=8
 'intCompil'=9
-'floatcompil'=10
+'floatCompil'=10
 'scancompil'=11
 'printcompil'=12
 'start'=13

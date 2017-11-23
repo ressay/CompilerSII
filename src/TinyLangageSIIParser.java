@@ -21,19 +21,20 @@ public class TinyLangageSIIParser extends Parser {
 		ID=18, PLUS=19, MINUS=20, MUL=21, DIV=22, SUP=23, INF=24, INTEGERVAL=25, 
 		FLOATVAL=26, WHITESPACE=27, STR=28;
 	public static final int
-		RULE_prog = 0, RULE_dec = 1, RULE_type = 2, RULE_val = 3, RULE_vars = 4, 
-		RULE_insts = 5, RULE_inst = 6, RULE_affect = 7, RULE_exp = 8, RULE_t = 9, 
-		RULE_opmi = 10, RULE_opma = 11, RULE_endEx = 12, RULE_ifinst = 13, RULE_comp = 14, 
-		RULE_op = 15, RULE_read = 16, RULE_write = 17, RULE_listID = 18;
+		RULE_prog = 0, RULE_declarations = 1, RULE_dec = 2, RULE_type = 3, RULE_vars = 4, 
+		RULE_identifier = 5, RULE_val = 6, RULE_insts = 7, RULE_inst = 8, RULE_affect = 9, 
+		RULE_exp = 10, RULE_t = 11, RULE_opmi = 12, RULE_opma = 13, RULE_endEx = 14, 
+		RULE_ifinst = 15, RULE_comp = 16, RULE_op = 17, RULE_read = 18, RULE_write = 19, 
+		RULE_listID = 20;
 	public static final String[] ruleNames = {
-		"prog", "dec", "type", "val", "vars", "insts", "inst", "affect", "exp", 
-		"t", "opmi", "opma", "endEx", "ifinst", "comp", "op", "read", "write", 
-		"listID"
+		"prog", "declarations", "dec", "type", "vars", "identifier", "val", "insts", 
+		"inst", "affect", "exp", "t", "opmi", "opma", "endEx", "ifinst", "comp", 
+		"op", "read", "write", "listID"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'compil'", "'('", "')'", "'{'", "'}'", "';'", "','", "'='", "'intCompil'", 
-		"'floatcompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
+		"'floatCompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
 		"'else'", "'endif'", null, "'+'", "'-'", "'*'", "'/'", "'>'", "'<'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
@@ -93,8 +94,8 @@ public class TinyLangageSIIParser extends Parser {
 	}
 	public static class ProgContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
-		public DecContext dec() {
-			return getRuleContext(DecContext.class,0);
+		public DeclarationsContext declarations() {
+			return getRuleContext(DeclarationsContext.class,0);
 		}
 		public TerminalNode START() { return getToken(TinyLangageSIIParser.START, 0); }
 		public InstsContext insts() {
@@ -118,29 +119,29 @@ public class TinyLangageSIIParser extends Parser {
 		ProgContext _localctx = new ProgContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_prog);
 		try {
-			setState(49);
+			setState(53);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(38);
-				match(T__0);
-				setState(39);
-				match(ID);
-				setState(40);
-				match(T__1);
-				setState(41);
-				match(T__2);
 				setState(42);
-				match(T__3);
+				match(T__0);
 				setState(43);
-				dec();
+				match(ID);
 				setState(44);
-				match(START);
+				match(T__1);
 				setState(45);
-				insts();
+				match(T__2);
 				setState(46);
+				match(T__3);
+				setState(47);
+				declarations();
+				setState(48);
+				match(START);
+				setState(49);
+				insts();
+				setState(50);
 				match(T__4);
 				}
 				break;
@@ -151,6 +152,65 @@ public class TinyLangageSIIParser extends Parser {
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DeclarationsContext extends ParserRuleContext {
+		public DecContext dec() {
+			return getRuleContext(DecContext.class,0);
+		}
+		public DeclarationsContext declarations() {
+			return getRuleContext(DeclarationsContext.class,0);
+		}
+		public DeclarationsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_declarations; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).enterDeclarations(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).exitDeclarations(this);
+		}
+	}
+
+	public final DeclarationsContext declarations() throws RecognitionException {
+		DeclarationsContext _localctx = new DeclarationsContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_declarations);
+		try {
+			setState(59);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				{
+				setState(55);
+				dec();
+				setState(56);
+				declarations();
+				}
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(58);
+				dec();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -187,15 +247,15 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final DecContext dec() throws RecognitionException {
 		DecContext _localctx = new DecContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_dec);
+		enterRule(_localctx, 4, RULE_dec);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
+			setState(61);
 			type();
-			setState(52);
+			setState(62);
 			vars();
-			setState(53);
+			setState(63);
 			match(T__5);
 			}
 		}
@@ -229,61 +289,14 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_type);
+		enterRule(_localctx, 6, RULE_type);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
+			setState(65);
 			_la = _input.LA(1);
 			if ( !(_la==INT || _la==FLOAT) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ValContext extends ParserRuleContext {
-		public TerminalNode INTEGERVAL() { return getToken(TinyLangageSIIParser.INTEGERVAL, 0); }
-		public TerminalNode FLOATVAL() { return getToken(TinyLangageSIIParser.FLOATVAL, 0); }
-		public ValContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_val; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).enterVal(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).exitVal(this);
-		}
-	}
-
-	public final ValContext val() throws RecognitionException {
-		ValContext _localctx = new ValContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_val);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(57);
-			_la = _input.LA(1);
-			if ( !(_la==INTEGERVAL || _la==FLOATVAL) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -329,27 +342,111 @@ public class TinyLangageSIIParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63);
+			setState(71);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				{
 				{
-				setState(59);
+				setState(67);
 				match(ID);
-				setState(60);
+				setState(68);
 				match(T__6);
-				setState(61);
+				setState(69);
 				vars();
 				}
 				}
 				break;
 			case 2:
 				{
-				setState(62);
+				setState(70);
 				match(ID);
 				}
 				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class IdentifierContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
+		public IdentifierContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_identifier; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).enterIdentifier(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).exitIdentifier(this);
+		}
+	}
+
+	public final IdentifierContext identifier() throws RecognitionException {
+		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_identifier);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(73);
+			match(ID);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ValContext extends ParserRuleContext {
+		public TerminalNode INTEGERVAL() { return getToken(TinyLangageSIIParser.INTEGERVAL, 0); }
+		public TerminalNode FLOATVAL() { return getToken(TinyLangageSIIParser.FLOATVAL, 0); }
+		public ValContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_val; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).enterVal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyLangageSIIListener ) ((TinyLangageSIIListener)listener).exitVal(this);
+		}
+	}
+
+	public final ValContext val() throws RecognitionException {
+		ValContext _localctx = new ValContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_val);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(75);
+			_la = _input.LA(1);
+			if ( !(_la==INTEGERVAL || _la==FLOATVAL) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
 			}
 			}
 		}
@@ -387,20 +484,20 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final InstsContext insts() throws RecognitionException {
 		InstsContext _localctx = new InstsContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_insts);
+		enterRule(_localctx, 14, RULE_insts);
 		try {
-			setState(72);
+			setState(84);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(65);
+				setState(77);
 				inst();
-				setState(66);
+				setState(78);
 				match(T__5);
-				setState(67);
+				setState(79);
 				insts();
 				}
 				}
@@ -408,9 +505,9 @@ public class TinyLangageSIIParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(69);
+				setState(81);
 				inst();
-				setState(70);
+				setState(82);
 				match(T__5);
 				}
 				break;
@@ -456,36 +553,36 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final InstContext inst() throws RecognitionException {
 		InstContext _localctx = new InstContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_inst);
+		enterRule(_localctx, 16, RULE_inst);
 		try {
-			setState(78);
+			setState(90);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(86);
 				affect();
 				}
 				break;
 			case IF:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(75);
+				setState(87);
 				ifinst();
 				}
 				break;
 			case SCAN:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(76);
+				setState(88);
 				read();
 				}
 				break;
 			case PRINT:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(77);
+				setState(89);
 				write();
 				}
 				break;
@@ -505,7 +602,9 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static class AffectContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
@@ -525,15 +624,15 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final AffectContext affect() throws RecognitionException {
 		AffectContext _localctx = new AffectContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_affect);
+		enterRule(_localctx, 18, RULE_affect);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
-			match(ID);
-			setState(81);
+			setState(92);
+			identifier();
+			setState(93);
 			match(T__7);
-			setState(82);
+			setState(94);
 			exp();
 			}
 		}
@@ -574,26 +673,26 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final ExpContext exp() throws RecognitionException {
 		ExpContext _localctx = new ExpContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_exp);
+		enterRule(_localctx, 20, RULE_exp);
 		try {
-			setState(89);
+			setState(101);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(84);
+				setState(96);
 				t();
-				setState(85);
+				setState(97);
 				opmi();
-				setState(86);
+				setState(98);
 				exp();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(88);
+				setState(100);
 				t();
 				}
 				break;
@@ -636,26 +735,26 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final TContext t() throws RecognitionException {
 		TContext _localctx = new TContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_t);
+		enterRule(_localctx, 22, RULE_t);
 		try {
-			setState(96);
+			setState(108);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(91);
+				setState(103);
 				endEx();
-				setState(92);
+				setState(104);
 				opma();
-				setState(93);
+				setState(105);
 				t();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(95);
+				setState(107);
 				endEx();
 				}
 				break;
@@ -691,12 +790,12 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final OpmiContext opmi() throws RecognitionException {
 		OpmiContext _localctx = new OpmiContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_opmi);
+		enterRule(_localctx, 24, RULE_opmi);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(98);
+			setState(110);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MINUS) ) {
 			_errHandler.recoverInline(this);
@@ -738,12 +837,12 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final OpmaContext opma() throws RecognitionException {
 		OpmaContext _localctx = new OpmaContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_opma);
+		enterRule(_localctx, 26, RULE_opma);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(100);
+			setState(112);
 			_la = _input.LA(1);
 			if ( !(_la==MUL || _la==DIV) ) {
 			_errHandler.recoverInline(this);
@@ -767,7 +866,9 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static class EndExContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
@@ -790,26 +891,26 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final EndExContext endEx() throws RecognitionException {
 		EndExContext _localctx = new EndExContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_endEx);
+		enterRule(_localctx, 28, RULE_endEx);
 		try {
-			setState(108);
+			setState(120);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(102);
-				match(ID);
+				setState(114);
+				identifier();
 				}
 				break;
 			case T__1:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(103);
+				setState(115);
 				match(T__1);
-				setState(104);
+				setState(116);
 				exp();
-				setState(105);
+				setState(117);
 				match(T__2);
 				}
 				break;
@@ -817,7 +918,7 @@ public class TinyLangageSIIParser extends Parser {
 			case FLOATVAL:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(107);
+				setState(119);
 				val();
 				}
 				break;
@@ -866,23 +967,23 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final IfinstContext ifinst() throws RecognitionException {
 		IfinstContext _localctx = new IfinstContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_ifinst);
+		enterRule(_localctx, 30, RULE_ifinst);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(122);
 			match(IF);
-			setState(111);
+			setState(123);
 			match(T__1);
-			setState(112);
+			setState(124);
 			comp();
-			setState(113);
+			setState(125);
 			match(T__2);
-			setState(114);
+			setState(126);
 			match(THEN);
-			setState(115);
+			setState(127);
 			insts();
-			setState(119);
+			setState(131);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ENDIF:
@@ -891,16 +992,16 @@ public class TinyLangageSIIParser extends Parser {
 				break;
 			case ELSE:
 				{
-				setState(117);
+				setState(129);
 				match(ELSE);
-				setState(118);
+				setState(130);
 				insts();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(121);
+			setState(133);
 			match(ENDIF);
 			}
 		}
@@ -941,15 +1042,15 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final CompContext comp() throws RecognitionException {
 		CompContext _localctx = new CompContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_comp);
+		enterRule(_localctx, 32, RULE_comp);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
+			setState(135);
 			exp();
-			setState(124);
+			setState(136);
 			op();
-			setState(125);
+			setState(137);
 			exp();
 			}
 		}
@@ -983,12 +1084,12 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final OpContext op() throws RecognitionException {
 		OpContext _localctx = new OpContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_op);
+		enterRule(_localctx, 34, RULE_op);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(127);
+			setState(139);
 			_la = _input.LA(1);
 			if ( !(_la==SUP || _la==INF) ) {
 			_errHandler.recoverInline(this);
@@ -1032,17 +1133,17 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final ReadContext read() throws RecognitionException {
 		ReadContext _localctx = new ReadContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_read);
+		enterRule(_localctx, 36, RULE_read);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(129);
+			setState(141);
 			match(SCAN);
-			setState(130);
+			setState(142);
 			match(T__1);
-			setState(131);
+			setState(143);
 			listID();
-			setState(132);
+			setState(144);
 			match(T__2);
 			}
 		}
@@ -1076,17 +1177,17 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final WriteContext write() throws RecognitionException {
 		WriteContext _localctx = new WriteContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_write);
+		enterRule(_localctx, 38, RULE_write);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(134);
+			setState(146);
 			match(PRINT);
-			setState(135);
+			setState(147);
 			match(T__1);
-			setState(136);
+			setState(148);
 			match(STR);
-			setState(137);
+			setState(149);
 			match(T__2);
 			}
 		}
@@ -1102,7 +1203,9 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static class ListIDContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
 		public ListIDContext listID() {
 			return getRuleContext(ListIDContext.class,0);
 		}
@@ -1122,27 +1225,27 @@ public class TinyLangageSIIParser extends Parser {
 
 	public final ListIDContext listID() throws RecognitionException {
 		ListIDContext _localctx = new ListIDContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_listID);
+		enterRule(_localctx, 40, RULE_listID);
 		try {
-			setState(143);
+			setState(156);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(139);
-				match(ID);
-				setState(140);
+				setState(151);
+				identifier();
+				setState(152);
 				match(T__6);
-				setState(141);
+				setState(153);
 				listID();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(142);
-				match(ID);
+				setState(155);
+				identifier();
 				}
 				break;
 			}
@@ -1159,43 +1262,48 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36\u0094\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36\u00a1\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3\2\5\2\64"+
-		"\n\2\3\3\3\3\3\3\3\3\3\4\3\4\3\5\3\5\3\6\3\6\3\6\3\6\5\6B\n\6\3\7\3\7"+
-		"\3\7\3\7\3\7\3\7\3\7\5\7K\n\7\3\b\3\b\3\b\3\b\5\bQ\n\b\3\t\3\t\3\t\3\t"+
-		"\3\n\3\n\3\n\3\n\3\n\5\n\\\n\n\3\13\3\13\3\13\3\13\3\13\5\13c\n\13\3\f"+
-		"\3\f\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16o\n\16\3\17\3\17\3\17\3"+
-		"\17\3\17\3\17\3\17\3\17\3\17\5\17z\n\17\3\17\3\17\3\20\3\20\3\20\3\20"+
-		"\3\21\3\21\3\22\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\23\3\24\3\24"+
-		"\3\24\3\24\5\24\u0092\n\24\3\24\2\2\25\2\4\6\b\n\f\16\20\22\24\26\30\32"+
-		"\34\36 \"$&\2\7\3\2\13\f\3\2\33\34\3\2\25\26\3\2\27\30\3\2\31\32\2\u008c"+
-		"\2\63\3\2\2\2\4\65\3\2\2\2\69\3\2\2\2\b;\3\2\2\2\nA\3\2\2\2\fJ\3\2\2\2"+
-		"\16P\3\2\2\2\20R\3\2\2\2\22[\3\2\2\2\24b\3\2\2\2\26d\3\2\2\2\30f\3\2\2"+
-		"\2\32n\3\2\2\2\34p\3\2\2\2\36}\3\2\2\2 \u0081\3\2\2\2\"\u0083\3\2\2\2"+
-		"$\u0088\3\2\2\2&\u0091\3\2\2\2()\7\3\2\2)*\7\24\2\2*+\7\4\2\2+,\7\5\2"+
-		"\2,-\7\6\2\2-.\5\4\3\2./\7\17\2\2/\60\5\f\7\2\60\61\7\7\2\2\61\64\3\2"+
-		"\2\2\62\64\3\2\2\2\63(\3\2\2\2\63\62\3\2\2\2\64\3\3\2\2\2\65\66\5\6\4"+
-		"\2\66\67\5\n\6\2\678\7\b\2\28\5\3\2\2\29:\t\2\2\2:\7\3\2\2\2;<\t\3\2\2"+
-		"<\t\3\2\2\2=>\7\24\2\2>?\7\t\2\2?B\5\n\6\2@B\7\24\2\2A=\3\2\2\2A@\3\2"+
-		"\2\2B\13\3\2\2\2CD\5\16\b\2DE\7\b\2\2EF\5\f\7\2FK\3\2\2\2GH\5\16\b\2H"+
-		"I\7\b\2\2IK\3\2\2\2JC\3\2\2\2JG\3\2\2\2K\r\3\2\2\2LQ\5\20\t\2MQ\5\34\17"+
-		"\2NQ\5\"\22\2OQ\5$\23\2PL\3\2\2\2PM\3\2\2\2PN\3\2\2\2PO\3\2\2\2Q\17\3"+
-		"\2\2\2RS\7\24\2\2ST\7\n\2\2TU\5\22\n\2U\21\3\2\2\2VW\5\24\13\2WX\5\26"+
-		"\f\2XY\5\22\n\2Y\\\3\2\2\2Z\\\5\24\13\2[V\3\2\2\2[Z\3\2\2\2\\\23\3\2\2"+
-		"\2]^\5\32\16\2^_\5\30\r\2_`\5\24\13\2`c\3\2\2\2ac\5\32\16\2b]\3\2\2\2"+
-		"ba\3\2\2\2c\25\3\2\2\2de\t\4\2\2e\27\3\2\2\2fg\t\5\2\2g\31\3\2\2\2ho\7"+
-		"\24\2\2ij\7\4\2\2jk\5\22\n\2kl\7\5\2\2lo\3\2\2\2mo\5\b\5\2nh\3\2\2\2n"+
-		"i\3\2\2\2nm\3\2\2\2o\33\3\2\2\2pq\7\20\2\2qr\7\4\2\2rs\5\36\20\2st\7\5"+
-		"\2\2tu\7\21\2\2uy\5\f\7\2vz\3\2\2\2wx\7\22\2\2xz\5\f\7\2yv\3\2\2\2yw\3"+
-		"\2\2\2z{\3\2\2\2{|\7\23\2\2|\35\3\2\2\2}~\5\22\n\2~\177\5 \21\2\177\u0080"+
-		"\5\22\n\2\u0080\37\3\2\2\2\u0081\u0082\t\6\2\2\u0082!\3\2\2\2\u0083\u0084"+
-		"\7\r\2\2\u0084\u0085\7\4\2\2\u0085\u0086\5&\24\2\u0086\u0087\7\5\2\2\u0087"+
-		"#\3\2\2\2\u0088\u0089\7\16\2\2\u0089\u008a\7\4\2\2\u008a\u008b\7\36\2"+
-		"\2\u008b\u008c\7\5\2\2\u008c%\3\2\2\2\u008d\u008e\7\24\2\2\u008e\u008f"+
-		"\7\t\2\2\u008f\u0092\5&\24\2\u0090\u0092\7\24\2\2\u0091\u008d\3\2\2\2"+
-		"\u0091\u0090\3\2\2\2\u0092\'\3\2\2\2\13\63AJP[bny\u0091";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\3\2\3\2\3\2\3\2\3\2\3\2\3\2\3"+
+		"\2\3\2\3\2\3\2\5\28\n\2\3\3\3\3\3\3\3\3\5\3>\n\3\3\4\3\4\3\4\3\4\3\5\3"+
+		"\5\3\6\3\6\3\6\3\6\5\6J\n\6\3\7\3\7\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3"+
+		"\t\5\tW\n\t\3\n\3\n\3\n\3\n\5\n]\n\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3"+
+		"\f\3\f\5\fh\n\f\3\r\3\r\3\r\3\r\3\r\5\ro\n\r\3\16\3\16\3\17\3\17\3\20"+
+		"\3\20\3\20\3\20\3\20\3\20\5\20{\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\3\21\3\21\5\21\u0086\n\21\3\21\3\21\3\22\3\22\3\22\3\22\3\23\3\23\3\24"+
+		"\3\24\3\24\3\24\3\24\3\25\3\25\3\25\3\25\3\25\3\26\3\26\3\26\3\26\3\26"+
+		"\5\26\u009f\n\26\3\26\2\2\27\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \""+
+		"$&(*\2\7\3\2\13\f\3\2\33\34\3\2\25\26\3\2\27\30\3\2\31\32\2\u0098\2\67"+
+		"\3\2\2\2\4=\3\2\2\2\6?\3\2\2\2\bC\3\2\2\2\nI\3\2\2\2\fK\3\2\2\2\16M\3"+
+		"\2\2\2\20V\3\2\2\2\22\\\3\2\2\2\24^\3\2\2\2\26g\3\2\2\2\30n\3\2\2\2\32"+
+		"p\3\2\2\2\34r\3\2\2\2\36z\3\2\2\2 |\3\2\2\2\"\u0089\3\2\2\2$\u008d\3\2"+
+		"\2\2&\u008f\3\2\2\2(\u0094\3\2\2\2*\u009e\3\2\2\2,-\7\3\2\2-.\7\24\2\2"+
+		"./\7\4\2\2/\60\7\5\2\2\60\61\7\6\2\2\61\62\5\4\3\2\62\63\7\17\2\2\63\64"+
+		"\5\20\t\2\64\65\7\7\2\2\658\3\2\2\2\668\3\2\2\2\67,\3\2\2\2\67\66\3\2"+
+		"\2\28\3\3\2\2\29:\5\6\4\2:;\5\4\3\2;>\3\2\2\2<>\5\6\4\2=9\3\2\2\2=<\3"+
+		"\2\2\2>\5\3\2\2\2?@\5\b\5\2@A\5\n\6\2AB\7\b\2\2B\7\3\2\2\2CD\t\2\2\2D"+
+		"\t\3\2\2\2EF\7\24\2\2FG\7\t\2\2GJ\5\n\6\2HJ\7\24\2\2IE\3\2\2\2IH\3\2\2"+
+		"\2J\13\3\2\2\2KL\7\24\2\2L\r\3\2\2\2MN\t\3\2\2N\17\3\2\2\2OP\5\22\n\2"+
+		"PQ\7\b\2\2QR\5\20\t\2RW\3\2\2\2ST\5\22\n\2TU\7\b\2\2UW\3\2\2\2VO\3\2\2"+
+		"\2VS\3\2\2\2W\21\3\2\2\2X]\5\24\13\2Y]\5 \21\2Z]\5&\24\2[]\5(\25\2\\X"+
+		"\3\2\2\2\\Y\3\2\2\2\\Z\3\2\2\2\\[\3\2\2\2]\23\3\2\2\2^_\5\f\7\2_`\7\n"+
+		"\2\2`a\5\26\f\2a\25\3\2\2\2bc\5\30\r\2cd\5\32\16\2de\5\26\f\2eh\3\2\2"+
+		"\2fh\5\30\r\2gb\3\2\2\2gf\3\2\2\2h\27\3\2\2\2ij\5\36\20\2jk\5\34\17\2"+
+		"kl\5\30\r\2lo\3\2\2\2mo\5\36\20\2ni\3\2\2\2nm\3\2\2\2o\31\3\2\2\2pq\t"+
+		"\4\2\2q\33\3\2\2\2rs\t\5\2\2s\35\3\2\2\2t{\5\f\7\2uv\7\4\2\2vw\5\26\f"+
+		"\2wx\7\5\2\2x{\3\2\2\2y{\5\16\b\2zt\3\2\2\2zu\3\2\2\2zy\3\2\2\2{\37\3"+
+		"\2\2\2|}\7\20\2\2}~\7\4\2\2~\177\5\"\22\2\177\u0080\7\5\2\2\u0080\u0081"+
+		"\7\21\2\2\u0081\u0085\5\20\t\2\u0082\u0086\3\2\2\2\u0083\u0084\7\22\2"+
+		"\2\u0084\u0086\5\20\t\2\u0085\u0082\3\2\2\2\u0085\u0083\3\2\2\2\u0086"+
+		"\u0087\3\2\2\2\u0087\u0088\7\23\2\2\u0088!\3\2\2\2\u0089\u008a\5\26\f"+
+		"\2\u008a\u008b\5$\23\2\u008b\u008c\5\26\f\2\u008c#\3\2\2\2\u008d\u008e"+
+		"\t\6\2\2\u008e%\3\2\2\2\u008f\u0090\7\r\2\2\u0090\u0091\7\4\2\2\u0091"+
+		"\u0092\5*\26\2\u0092\u0093\7\5\2\2\u0093\'\3\2\2\2\u0094\u0095\7\16\2"+
+		"\2\u0095\u0096\7\4\2\2\u0096\u0097\7\36\2\2\u0097\u0098\7\5\2\2\u0098"+
+		")\3\2\2\2\u0099\u009a\5\f\7\2\u009a\u009b\7\t\2\2\u009b\u009c\5*\26\2"+
+		"\u009c\u009f\3\2\2\2\u009d\u009f\5\f\7\2\u009e\u0099\3\2\2\2\u009e\u009d"+
+		"\3\2\2\2\u009f+\3\2\2\2\f\67=IV\\gnz\u0085\u009e";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

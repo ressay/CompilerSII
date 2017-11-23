@@ -3,17 +3,25 @@ import java.util.ArrayList;
 public class TableS
 {
     static public class Element {
-        public Element(String name, int nature, int type, int size) {
+
+        public Element(String name, int declared, int type, int size) {
             this.name = name;
-            this.nature = nature;
+            this.declared = declared;
             this.type = type;
             this.size = size;
         }
 
         String name;
-        int nature; // 0:cts 1:var
+        int declared; // 0:undeclared 1:declared
         int type; // 0:int 1:float
         int size; //size;
+
+        @Override
+        public String toString()
+        {
+            String dec = (declared == 1)? "declared":"undeclared";
+            return "var: " + name + " type: " + ((type==0)?"int":"float") + " var status: " + dec;
+        }
     }
 
 
@@ -27,6 +35,11 @@ public class TableS
                 return L.get(i);
         }
         return null;
+    }
+
+    public boolean containsElement(String name)
+    {
+        return getElement(name) != null;
     }
 
     public void addElement(Element e)
@@ -50,5 +63,14 @@ public class TableS
         L.remove(e);
     }
 
+    public int getSize()
+    {
+        return L.size();
+    }
+
+    public Element getElement(int i)
+    {
+        return L.get(i);
+    }
 
 }

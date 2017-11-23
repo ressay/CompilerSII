@@ -27,6 +27,18 @@ public class TinyLangageSIIBaseListener implements TinyLangageSIIListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDeclarations(TinyLangageSIIParser.DeclarationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclarations(TinyLangageSIIParser.DeclarationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDec(TinyLangageSIIParser.DecContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -51,18 +63,6 @@ public class TinyLangageSIIBaseListener implements TinyLangageSIIListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVal(TinyLangageSIIParser.ValContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVal(TinyLangageSIIParser.ValContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterVars(TinyLangageSIIParser.VarsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -70,6 +70,30 @@ public class TinyLangageSIIBaseListener implements TinyLangageSIIListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVars(TinyLangageSIIParser.VarsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentifier(TinyLangageSIIParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifier(TinyLangageSIIParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVal(TinyLangageSIIParser.ValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVal(TinyLangageSIIParser.ValContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

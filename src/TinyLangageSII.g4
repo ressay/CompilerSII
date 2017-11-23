@@ -1,18 +1,20 @@
 grammar TinyLangageSII;
 
-prog : 'compil' ID '(' ')' '{' dec START insts '}' | ;
+prog : 'compil' ID '(' ')' '{' declarations START insts '}' | ;
+declarations : (dec declarations)|dec  ;
 dec : type vars ';' ;
 type : INT | FLOAT;
-val : INTEGERVAL | FLOATVAL;
 vars : ((ID ',' vars) | ID) ;
+identifier : ID;
+val : INTEGERVAL | FLOATVAL;
 insts : (inst ';' insts) | inst ';' ;
 inst : affect | ifinst | read | write;
-affect : ID '=' exp ;
+affect : identifier '=' exp ;
 exp : t opmi exp | t;
 t : endEx opma t | endEx;
 opmi : PLUS | MINUS ;
 opma : MUL | DIV ;
-endEx : ID | '(' exp ')' | val ;
+endEx : identifier | '(' exp ')' | val ;
 
 ifinst : IF '(' comp ')' THEN insts (|ELSE insts)  ENDIF;
 
@@ -21,10 +23,10 @@ op : SUP | INF ;
 
 read :  SCAN '(' listID ')' ;
 write : PRINT '(' STR ')' ;
-listID : ID ',' listID | ID ;
+listID : identifier ',' listID | identifier ;
 
 INT : 'intCompil';
-FLOAT : 'floatcompil';
+FLOAT : 'floatCompil';
 SCAN : 'scancompil' ;
 PRINT : 'printcompil' ;
 START : 'start' ;

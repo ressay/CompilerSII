@@ -17,6 +17,16 @@ public interface TinyLangageSIIListener extends ParseTreeListener {
 	 */
 	void exitProg(TinyLangageSIIParser.ProgContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TinyLangageSIIParser#declarations}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclarations(TinyLangageSIIParser.DeclarationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangageSIIParser#declarations}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclarations(TinyLangageSIIParser.DeclarationsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TinyLangageSIIParser#dec}.
 	 * @param ctx the parse tree
 	 */
@@ -37,16 +47,6 @@ public interface TinyLangageSIIListener extends ParseTreeListener {
 	 */
 	void exitType(TinyLangageSIIParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TinyLangageSIIParser#val}.
-	 * @param ctx the parse tree
-	 */
-	void enterVal(TinyLangageSIIParser.ValContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TinyLangageSIIParser#val}.
-	 * @param ctx the parse tree
-	 */
-	void exitVal(TinyLangageSIIParser.ValContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link TinyLangageSIIParser#vars}.
 	 * @param ctx the parse tree
 	 */
@@ -56,6 +56,26 @@ public interface TinyLangageSIIListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVars(TinyLangageSIIParser.VarsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangageSIIParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(TinyLangageSIIParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangageSIIParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(TinyLangageSIIParser.IdentifierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyLangageSIIParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterVal(TinyLangageSIIParser.ValContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyLangageSIIParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitVal(TinyLangageSIIParser.ValContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TinyLangageSIIParser#insts}.
 	 * @param ctx the parse tree
