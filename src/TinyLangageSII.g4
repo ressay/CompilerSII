@@ -10,14 +10,14 @@ val : INTEGERVAL | FLOATVAL;
 insts : (inst ';' insts) | inst ';' ;
 inst : affect | ifinst | read | write;
 affect : identifier '=' exp ;
-exp : t opmi exp | t;
-t : endEx opma t | endEx;
+exp : exp opmi t | t;
+t : t opma endEx | endEx;
 opmi : PLUS | MINUS ;
 opma : MUL | DIV ;
 endEx : identifier | '(' exp ')' | val ;
 
-ifinst : IF '(' comp ')' THEN insts (|ELSE insts)  ENDIF;
-
+ifinst : IF '(' comp ')' THEN insts (|el insts)  ENDIF;
+el : ELSE;
 comp : exp op exp ;
 op : SUP | INF ;
 

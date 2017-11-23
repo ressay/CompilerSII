@@ -207,6 +207,18 @@ public class TinyLangageSIIBaseListener implements TinyLangageSIIListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterEl(TinyLangageSIIParser.ElContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEl(TinyLangageSIIParser.ElContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterComp(TinyLangageSIIParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}

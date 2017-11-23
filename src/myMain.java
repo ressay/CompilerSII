@@ -28,7 +28,8 @@ public class myMain extends TestRig
 
     protected void process(Lexer lexer, Class<? extends Parser> parserClass, Parser parser, CharStream input) throws IOException, IllegalAccessException, InvocationTargetException, PrintException {
         lexer.setInputStream(input);
-        parser.addParseListener(new LangSIIListener());
+        parser.addParseListener(new SemanticErrorCheck());
+        parser.addParseListener(new QuadGenerator());
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
         if(this.showTokens) {

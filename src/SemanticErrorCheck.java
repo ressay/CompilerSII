@@ -1,48 +1,24 @@
-import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ressay on 23/11/17.
  */
-public class LangSIIListener extends TinyLangageSIIBaseListener
+public class SemanticErrorCheck extends TinyLangageSIIBaseListener
 {
     private static final int DECLARED = 1;
     private static final int UNDECLARED = 2;
     private static final int FLOAT = 2;
     private static final int INT = 1;
 
-    private static final int WARNINGS = 1;
-    private static final int IMPORTANTCOMMENTS = 2;
-    private static final int RANDOMCOMMENTS = 4;
-    private static final int COMPILERTEXTS = 8;
-    private static final int MOREINFORMATIONS = 16;
-    private static final int ERROR = 32;
-
-    private String getTextType(int type)
-    {
-        switch (type)
-        {
-            case WARNINGS: return "WARNINGS";
-            case IMPORTANTCOMMENTS: return "IMPORTANTCOMMENTS";
-            case RANDOMCOMMENTS: return "RANDOMCOMMENTS";
-            case COMPILERTEXTS: return "COMPILERTEXTS";
-            case MOREINFORMATIONS: return "MOREINFORMATIONS";
-            case ERROR : return "ERROR";
-        }
-        return "";
-    }
-    private static final int ALLTEXTS = WARNINGS|IMPORTANTCOMMENTS|RANDOMCOMMENTS|COMPILERTEXTS|MOREINFORMATIONS|ERROR;
     private TableS table = new TableS();
     private LinkedList<String> errors = new LinkedList<>();
     private HashMap<ParserRuleContext,Integer> types = new HashMap<>();
-    int printMask = ERROR|COMPILERTEXTS;
+
 
     private void addCtxType(ParserRuleContext ctx,int type)
     {
@@ -71,8 +47,7 @@ public class LangSIIListener extends TinyLangageSIIBaseListener
 
     private void showText(String text, int typeOfText)
     {
-        if((typeOfText & printMask) != 0)
-            System.out.println(getTextType(typeOfText) + ": " +text);
+        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.SEMANTICERR);
     }
 
 
@@ -80,17 +55,19 @@ public class LangSIIListener extends TinyLangageSIIBaseListener
     @Override public void exitProg(TinyLangageSIIParser.ProgContext ctx)
     {
         if(errors.size() == 0) { // no errors
-            showText("program compiled without errors!",COMPILERTEXTS);
-            showText("symbols table: ",COMPILERTEXTS);
+            showText("program compiled without errors!",TextDisplayer.COMPILERTEXTS);
+            showText("symbols table: ",TextDisplayer.COMPILERTEXTS);
+            showText("******************************************************",TextDisplayer.COMPILERTEXTS);
             for (int i = 0; i < table.getSize(); i++) {
-                showText(table.getElement(i).toString(),COMPILERTEXTS);
+                showText(table.getElement(i).toString(),TextDisplayer.COMPILERTEXTS);
             }
+            showText("******************************************************",TextDisplayer.COMPILERTEXTS);
         }
         else
         {
-            showText("program compiled with the following errors",COMPILERTEXTS);
+            showText("program compiled with the following errors",TextDisplayer.COMPILERTEXTS);
             for (int i = 0; i < errors.size(); i++) {
-                showText(errors.get(i),ERROR);
+                showText(errors.get(i),TextDisplayer.ERROR);
             }
         }
     }
@@ -154,8 +131,8 @@ public class LangSIIListener extends TinyLangageSIIBaseListener
                 addCtxType(ctx,getResultingType(getCtxType(ctx.t()),getCtxType(ctx.exp())));
             else {
                 addCtxType(ctx, 0); // type 0 will always generate error
-                showText("incompatible type between " + ctx.t().getText() + " and " + ctx.exp().getText(),IMPORTANTCOMMENTS);
-                showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.exp().getText() + " type: " + getCtxType(ctx.exp()),MOREINFORMATIONS);
+                showText("incompatible type between " + ctx.t().getText() + " and " + ctx.exp().getText(),TextDisplayer.IMPORTANTCOMMENTS);
+                showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.exp().getText() + " type: " + getCtxType(ctx.exp()),TextDisplayer.MOREINFORMATIONS);
             }
 
         }
@@ -171,8 +148,8 @@ public class LangSIIListener extends TinyLangageSIIBaseListener
                 addCtxType(ctx,getResultingType(getCtxType(ctx.t()),getCtxType(ctx.endEx())));
             else {
                 addCtxType(ctx, 0); // type 0 will always generate error
-                showText("incompatible type between " + ctx.t().getText() + " and " + ctx.endEx().getText(),IMPORTANTCOMMENTS);
-                showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.endEx().getText() + " type: " + getCtxType(ctx.endEx()),MOREINFORMATIONS);
+                showText("incompatible type between " + ctx.t().getText() + " and " + ctx.endEx().getText(),TextDisplayer.IMPORTANTCOMMENTS);
+                showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.endEx().getText() + " type: " + getCtxType(ctx.endEx()),TextDisplayer.MOREINFORMATIONS);
             }
         }
     }
