@@ -1,0 +1,16 @@
+compil wiss ()
+{
+intCompil t,s;
+start
+printcompil("kheuubz dsfds sdfs \" ddsdf");
+if (a>0) then a = 2.33 - 2.2-c;
+endif;
+
+if (a<0) then b = 2/5;
+else
+c=55;
+scancompil(a,b,c);
+endif;
+printcompil("hh
+hh");
+}
