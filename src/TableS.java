@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class TableS
 {
-
     static public class Element {
         public Element(String name, int nature, int type, int size) {
             this.name = name;
