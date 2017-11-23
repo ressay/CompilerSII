@@ -9,24 +9,6 @@ import java.util.LinkedList;
 public class QuadGenerator extends TinyLangageSIIBaseListener
 {
 
-//    private HashMap<ParserRuleContext,String> temps = new HashMap<>();
-//
-//
-//    private void addCtxTemp(ParserRuleContext ctx,String temp)
-//    {
-//        temps.put(ctx,temp);
-//    }
-//
-//    private String getCtxTemp(ParserRuleContext ctx)
-//    {
-//        return temps.get(ctx);
-//    }
-//
-//    private void clearMap()
-//    {
-//        temps.clear();
-//    }
-
     private LinkedList<String> stack = new LinkedList<>();
     private Quads quads = new Quads();
     private int cptTemps = 0;
@@ -34,11 +16,6 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
 
     public QuadGenerator(SemanticErrorCheck semanticErrorCheck) {
         this.semanticErrorCheck = semanticErrorCheck;
-    }
-
-    private void showText(String text, int typeOfText)
-    {
-        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
     }
 
 
@@ -130,11 +107,9 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
         quads.getQuad(saveCondition).set(3,""+quads.size());
     }
 
-
-    @Override public void exitRead(TinyLangageSIIParser.ReadContext ctx) { }
-
-    @Override public void exitWrite(TinyLangageSIIParser.WriteContext ctx) { }
-
-    @Override public void exitListID(TinyLangageSIIParser.ListIDContext ctx) { }
+    private void showText(String text, int typeOfText)
+    {
+        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
+    }
 
 }

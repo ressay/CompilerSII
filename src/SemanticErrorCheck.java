@@ -20,41 +20,6 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     private HashMap<ParserRuleContext,Integer> types = new HashMap<>();
 
 
-    public LinkedList<String> getErrors() {
-        return errors;
-    }
-
-    private void addCtxType(ParserRuleContext ctx, int type)
-    {
-        types.put(ctx,type);
-    }
-
-    private int getCtxType(ParserRuleContext ctx)
-    {
-        return types.get(ctx);
-    }
-
-    private void clearMap()
-    {
-        types.clear();
-    }
-
-    private static boolean typesCompatible(int t1,int t2)
-    {
-        return (t1 & t2) != 0;
-    }
-
-    private static int getResultingType(int t1,int t2)
-    {
-        return ((t1 & t2 & FLOAT) != 0)?FLOAT:INT;
-    }
-
-    private void showText(String text, int typeOfText)
-    {
-        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.SEMANTICERR);
-    }
-
-
 
     @Override public void exitProg(TinyLangageSIIParser.ProgContext ctx)
     {
@@ -100,11 +65,6 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     {
         addCtxType(ctx,(ctx.INTEGERVAL()!=null)?INT:FLOAT);
     }
-
-
-    @Override public void exitInsts(TinyLangageSIIParser.InstsContext ctx) { }
-
-    @Override public void exitInst(TinyLangageSIIParser.InstContext ctx) { }
 
 
     @Override public void exitAffect(TinyLangageSIIParser.AffectContext ctx)
@@ -168,25 +128,42 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
             addCtxType(ctx,getCtxType(ctx.val()));
     }
 
+    public LinkedList<String> getErrors() {
+        return errors;
+    }
+
+    private void addCtxType(ParserRuleContext ctx, int type)
+    {
+        types.put(ctx,type);
+    }
+
+    private int getCtxType(ParserRuleContext ctx)
+    {
+        return types.get(ctx);
+    }
+
+    private void clearMap()
+    {
+        types.clear();
+    }
+
+    private static boolean typesCompatible(int t1,int t2)
+    {
+        return (t1 & t2) != 0;
+    }
+
+    private static int getResultingType(int t1,int t2)
+    {
+        return ((t1 & t2 & FLOAT) != 0)?FLOAT:INT;
+    }
+
+    private void showText(String text, int typeOfText)
+    {
+        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.SEMANTICERR);
+    }
+
     @Override public void exitComp(TinyLangageSIIParser.CompContext ctx)
     {
         clearMap();
     }
-
-    @Override public void exitIfinst(TinyLangageSIIParser.IfinstContext ctx) { }
-
-
-    @Override public void exitRead(TinyLangageSIIParser.ReadContext ctx) { }
-
-    @Override public void exitWrite(TinyLangageSIIParser.WriteContext ctx) { }
-
-    @Override public void exitListID(TinyLangageSIIParser.ListIDContext ctx) { }
-
-    @Override public void enterEveryRule(ParserRuleContext ctx) { }
-
-    @Override public void exitEveryRule(ParserRuleContext ctx) { }
-
-    @Override public void visitTerminal(TerminalNode node) { }
-
-    @Override public void visitErrorNode(ErrorNode node) { }
 }
