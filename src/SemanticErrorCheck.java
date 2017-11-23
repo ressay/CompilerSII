@@ -20,7 +20,11 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     private HashMap<ParserRuleContext,Integer> types = new HashMap<>();
 
 
-    private void addCtxType(ParserRuleContext ctx,int type)
+    public LinkedList<String> getErrors() {
+        return errors;
+    }
+
+    private void addCtxType(ParserRuleContext ctx, int type)
     {
         types.put(ctx,type);
     }
@@ -116,7 +120,7 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         if(!table.containsElement(ctx.ID().getText()))
         {
             errors.add("variable " + ctx.ID().getText() + " has not been declared");
-            table.addElement(new TableS.Element(ctx.ID().getText(),UNDECLARED,INT,1));
+            table.addElement(new TableS.Element(ctx.ID().getText(),UNDECLARED,INT|FLOAT,1));
             // adding non declared variable in order to not generate same error again
         }
     }

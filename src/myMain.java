@@ -26,10 +26,17 @@ public class myMain extends TestRig
         }
     }
 
+    public static void addListeners(Parser parser)
+    {
+        SemanticErrorCheck semanticErrorCheck = new SemanticErrorCheck();
+        QuadGenerator quadGenerator = new QuadGenerator(semanticErrorCheck);
+        parser.addParseListener(quadGenerator);
+        parser.addParseListener(semanticErrorCheck);
+    }
+
     protected void process(Lexer lexer, Class<? extends Parser> parserClass, Parser parser, CharStream input) throws IOException, IllegalAccessException, InvocationTargetException, PrintException {
         lexer.setInputStream(input);
-        parser.addParseListener(new SemanticErrorCheck());
-        parser.addParseListener(new QuadGenerator());
+        addListeners(parser);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
         if(this.showTokens) {

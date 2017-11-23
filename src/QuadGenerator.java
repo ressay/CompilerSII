@@ -30,6 +30,11 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
     private LinkedList<String> stack = new LinkedList<>();
     private Quads quads = new Quads();
     private int cptTemps = 0;
+    SemanticErrorCheck semanticErrorCheck;
+
+    public QuadGenerator(SemanticErrorCheck semanticErrorCheck) {
+        this.semanticErrorCheck = semanticErrorCheck;
+    }
 
     private void showText(String text, int typeOfText)
     {
@@ -39,6 +44,8 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
 
     @Override public void exitProg(TinyLangageSIIParser.ProgContext ctx)
     {
+        if(semanticErrorCheck.getErrors().size()>0)
+            return;
         quads.addQuad("END","","","");
         showText("generated quads: ",TextDisplayer.COMPILERTEXTS);
         showText("******************************************************",TextDisplayer.COMPILERTEXTS);
