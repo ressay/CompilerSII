@@ -12,15 +12,15 @@ public class TableS
         }
 
         String name;
-        int declared; // 0:undeclared 1:declared
-        int type; // 0:int 1:float
+        int declared; // 2:undeclared 1:declared
+        int type; // 1:int 2:float
         int size; //size;
 
         @Override
         public String toString()
         {
             String dec = (declared == 1)? "declared":"undeclared";
-            return "var: " + name + " type: " + ((type==0)?"int":"float") + " var status: " + dec;
+            return "var: " + name + " type: " + ((type==1)?"int":"float") + " var status: " + dec;
         }
     }
 

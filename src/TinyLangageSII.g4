@@ -22,7 +22,7 @@ comp : exp op exp ;
 op : SUP | INF ;
 
 read :  SCAN '(' listID ')' ;
-write : PRINT '(' STR ')' ;
+write : PRINT '(' (STR|listID) ')' ;
 listID : identifier ',' listID | identifier ;
 
 INT : 'intCompil';
