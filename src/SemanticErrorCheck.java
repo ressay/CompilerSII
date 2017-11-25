@@ -20,7 +20,14 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     private HashMap<ParserRuleContext,Integer> types = new HashMap<>();
 
 
-
+    /**
+     * part of grammar which interests us in this section
+     * prog : 'compil' ID '(' ')' '{' declarations START insts '}'
+     *
+     *
+     * when we exit prog, we've parsed all text so if there are errors, we show them, else we show symbols table
+     * @param ctx
+     */
     @Override public void exitProg(TinyLangageSIIParser.ProgContext ctx)
     {
         if(errors.size() == 0) { // no errors
@@ -41,9 +48,23 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         }
     }
 
+    /**
+     * part of grammar which interests us in this section
+     * declarations : (dec declarations)|dec  ;
+     * dec : type vars ';' ;
+     * type : INT | FLOAT;
+     * vars : ((ID ',' vars) | ID) ;
+     *
+     *
+     * we check the text returned by "type" if it's intCompil we declare int else float
+     * after that we loop over vars to put all IDs (contained in vars.getChild(0) ) into symbols table
+     *
+     * @param ctx
+     */
+
     @Override public void exitDec(TinyLangageSIIParser.DecContext ctx)
     {
-        int type = (ctx.type().getText().equals("intCompil"))?1:2;
+        int type = (ctx.type().getText().equals("intCompil"))?INT:FLOAT;
 
         TinyLangageSIIParser.VarsContext vars = ctx.vars();
 
@@ -61,11 +82,16 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
 
     }
 
-    @Override public void exitVal(TinyLangageSIIParser.ValContext ctx)
-    {
-        addCtxType(ctx,(ctx.INTEGERVAL()!=null)?INT:FLOAT);
-    }
 
+    /**
+     * affect : identifier '=' exp ;
+     *
+     *
+     * we get the type of 'exp' and compare it with type of 'identifier'
+     * if they are not compatible we generate an error
+     * we clear the map that helped us to keep track of types (bricolage)
+     * @param ctx
+     */
 
     @Override public void exitAffect(TinyLangageSIIParser.AffectContext ctx)
     {
@@ -74,16 +100,23 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         clearMap();
     }
 
-    @Override public void exitIdentifier(TinyLangageSIIParser.IdentifierContext ctx)
-    {
-        // check if ID has been declared
-        if(!table.containsElement(ctx.ID().getText()))
-        {
-            errors.add("variable " + ctx.ID().getText() + " has not been declared");
-            table.addElement(new TableS.Element(ctx.ID().getText(),UNDECLARED,INT|FLOAT,1));
-            // adding non declared variable in order to not generate same error again
-        }
-    }
+    /**
+     * exp : exp opmi t | t;
+     * t : t opma endEx | endEx;
+     * endEx : identifier | '(' exp ')' | val ;
+     * opmi : PLUS | MINUS ; ====> + | -
+     * opma : MUL | DIV ; ====> * | /
+     *
+     *
+     * we check if ctx.exp() == null
+     * => we exited from rule (exp->t) and not (exp->exp opmi t) from the first rule exp : exp opmi t | t;
+     * so we keep track of type of exp (left member) which is same as t
+     * else
+     * => we exited from rule (exp->exp opmi t) and not (exp->t) from the first rule exp : exp opmi t | t;
+     * we check if exp and t have compatible types, we keep the type of the resulting type into exp (left member)
+     *          else we give exp (left member) type 0 which will generate error for sure in method "exitAffect"
+     * @param ctx
+     */
 
     @Override public void exitExp(TinyLangageSIIParser.ExpContext ctx)
     {
@@ -102,6 +135,24 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         }
     }
 
+    /**
+     * exp : exp opmi t | t;
+     * t : t opma endEx | endEx;
+     * endEx : identifier | '(' exp ')' | val ;
+     * opmi : PLUS | MINUS ; ====> + | -
+     * opma : MUL | DIV ; ====> * | /
+     *
+     *
+     * we check if ctx.t() == null
+     * => we exited from rule (t->endEx) and not (t->t opma endEx) from the second rule t : t opma endEx | endEx;
+     * so we keep track of type of t (left member) which is same as endEx
+     * else
+     * => we exited from rule (t->t opma endEx) and not (t->endEx) from the second rule t : t opma endEx | endEx;
+     * we check if t and endEx have compatible types, we keep the type of the resulting type into t (left member)
+     *          else we give t (left member) type 0 which will generate error for sure in method "exitAffect"
+     * @param ctx
+     */
+
     @Override public void exitT(TinyLangageSIIParser.TContext ctx)
     {
         if(ctx.t() == null)
@@ -118,6 +169,17 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         }
     }
 
+    /**
+     * endEx : identifier | '(' exp ')' | val ;
+     *
+     *
+     * we keep track of type of endEx
+     * if it's identifier we get the type from symbols table
+     * if it's exp we get type from our map
+     * if it's val we also get type from our map
+     * @param ctx
+     */
+
     @Override public void exitEndEx(TinyLangageSIIParser.EndExContext ctx)
     {
         if(ctx.identifier() != null)
@@ -128,11 +190,70 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
             addCtxType(ctx,getCtxType(ctx.val()));
     }
 
+    /**
+     * val : INTEGERVAL | FLOATVAL;
+     *
+     *
+     * we keep track of "Val" 's type by adding it to the map
+     * @param ctx
+     */
+
+    @Override public void exitVal(TinyLangageSIIParser.ValContext ctx)
+    {
+        addCtxType(ctx,(ctx.INTEGERVAL()!=null)?INT:FLOAT);
+    }
+
+    /**
+     * identifier : ID;
+     *
+     * identifier is a non terminal used to refer to any ID except in declaration
+     * use of it is to check if it has been declared before or not
+     * THAT IS ALL!
+     * @param ctx
+     */
+
+
+    @Override public void exitIdentifier(TinyLangageSIIParser.IdentifierContext ctx)
+    {
+        // check if ID has been declared
+        if(!table.containsElement(ctx.ID().getText()))
+        {
+            errors.add("variable " + ctx.ID().getText() + " has not been declared");
+            table.addElement(new TableS.Element(ctx.ID().getText(),UNDECLARED,INT|FLOAT,1));
+            // adding non declared variable in order to not generate same error again
+        }
+    }
+
+    /**
+     * comp : exp op exp ;
+     * op : SUP | INF ;
+     *
+     *
+     *
+     * @param ctx
+     */
+
+    //TODO check types here!
+
+    @Override public void exitComp(TinyLangageSIIParser.CompContext ctx)
+    {
+        clearMap();
+    }
+
+
+    /**
+     *
+     * errorNode is fired when there is an error I guess xD (lexer/parser) so .. yeah
+     * @param node
+     */
+
     @Override public void visitErrorNode(ErrorNode node)
     {
         errors.add("syntax error " + node.getParent().getText());
     }
 
+
+    /***************************************** Helper methods ************************************************/
     public LinkedList<String> getErrors() {
         return errors;
     }
@@ -167,8 +288,5 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.SEMANTICERR);
     }
 
-    @Override public void exitComp(TinyLangageSIIParser.CompContext ctx)
-    {
-        clearMap();
-    }
+
 }

@@ -26,6 +26,13 @@ public class myMain extends TestRig
         }
     }
 
+    /**
+     * this is all I've done in this class
+     * basically I add the listeners I've created in this method so that their methods are fired
+     * while text is getting parsed x)
+     * @param parser
+     */
+
     public static void addListeners(Parser parser)
     {
         SemanticErrorCheck semanticErrorCheck = new SemanticErrorCheck();
