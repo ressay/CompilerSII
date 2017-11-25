@@ -1,6 +1,6 @@
 grammar TinyLangageSII;
 
-prog : 'compil' ID '(' ')' '{' declarations START insts '}' | ;
+prog : 'compil' ID '(' ')' '{' declarations START insts '}' ;
 declarations : (dec declarations)|dec  ;
 dec : type vars ';' ;
 type : INT | FLOAT;

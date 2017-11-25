@@ -128,6 +128,11 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
             addCtxType(ctx,getCtxType(ctx.val()));
     }
 
+    @Override public void visitErrorNode(ErrorNode node)
+    {
+        errors.add("syntax error " + node.getParent().getText());
+    }
+
     public LinkedList<String> getErrors() {
         return errors;
     }
