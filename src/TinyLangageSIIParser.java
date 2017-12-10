@@ -19,7 +19,7 @@ public class TinyLangageSIIParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, INT=9, 
 		FLOAT=10, SCAN=11, PRINT=12, START=13, IF=14, THEN=15, ELSE=16, ENDIF=17, 
 		ID=18, PLUS=19, MINUS=20, MUL=21, DIV=22, SUP=23, INF=24, INTEGERVAL=25, 
-		FLOATVAL=26, WHITESPACE=27, STR=28;
+		FLOATVAL=26, WHITESPACE=27, COMMENTS=28, STR=29;
 	public static final int
 		RULE_prog = 0, RULE_declarations = 1, RULE_dec = 2, RULE_type = 3, RULE_vars = 4, 
 		RULE_identifier = 5, RULE_val = 6, RULE_insts = 7, RULE_inst = 8, RULE_affect = 9, 
@@ -41,7 +41,7 @@ public class TinyLangageSIIParser extends Parser {
 		null, null, null, null, null, null, null, null, null, "INT", "FLOAT", 
 		"SCAN", "PRINT", "START", "IF", "THEN", "ELSE", "ENDIF", "ID", "PLUS", 
 		"MINUS", "MUL", "DIV", "SUP", "INF", "INTEGERVAL", "FLOATVAL", "WHITESPACE", 
-		"STR"
+		"COMMENTS", "STR"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -1369,7 +1369,7 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\36\u00b0\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37\u00b0\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\2\3\2"+
@@ -1412,7 +1412,7 @@ public class TinyLangageSIIParser extends Parser {
 		"\u0098\5\26\f\2\u0098%\3\2\2\2\u0099\u009a\t\6\2\2\u009a\'\3\2\2\2\u009b"+
 		"\u009c\7\r\2\2\u009c\u009d\7\4\2\2\u009d\u009e\5,\27\2\u009e\u009f\7\5"+
 		"\2\2\u009f)\3\2\2\2\u00a0\u00a1\7\16\2\2\u00a1\u00a4\7\4\2\2\u00a2\u00a5"+
-		"\7\36\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2"+
+		"\7\37\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2"+
 		"\u00a5\u00a6\3\2\2\2\u00a6\u00a7\7\5\2\2\u00a7+\3\2\2\2\u00a8\u00a9\5"+
 		"\f\7\2\u00a9\u00aa\7\t\2\2\u00aa\u00ab\5,\27\2\u00ab\u00ae\3\2\2\2\u00ac"+
 		"\u00ae\5\f\7\2\u00ad\u00a8\3\2\2\2\u00ad\u00ac\3\2\2\2\u00ae-\3\2\2\2"+

@@ -15,9 +15,10 @@ public class TextDisplayer
 
     public static final int SEMANTICERR = 1;
     public static final int QUADGEN = 2;
+    public static final int CODEGEN = 4;
 
     private int printMask = ERROR|COMPILERTEXTS;
-    private int moduleMask = SEMANTICERR|QUADGEN;
+    private int moduleMask = SEMANTICERR|QUADGEN|CODEGEN;
 
     private static TextDisplayer _instance = null;
 
@@ -53,6 +54,7 @@ public class TextDisplayer
         {
             case SEMANTICERR: return "SEMANTIC CHECK";
             case QUADGEN: return "QUAD GENERATOR";
+            case CODEGEN: return "CODE GENERATOR";
         }
         return "";
     }

@@ -30,6 +30,8 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
             showText(i + ": " + quads.getQuad(i).toString(),TextDisplayer.COMPILERTEXTS);
         }
         showText("******************************************************",TextDisplayer.COMPILERTEXTS);
+        GenerateOC gOc = new GenerateOC(quads);
+        gOc.generateCode();
     }
 
     @Override public void exitAffect(TinyLangageSIIParser.AffectContext ctx)
