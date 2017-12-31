@@ -13,8 +13,16 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
     private Quads quads = new Quads();
     private int cptTemps = 0;
     SemanticErrorCheck semanticErrorCheck;
+    private static HashMap<String,String> brs = new HashMap<>();
+    LinkedList<GenerateOC.Instruction> instructions;
 
     public QuadGenerator(SemanticErrorCheck semanticErrorCheck) {
+        brs.put("<","BGE");
+        brs.put(">","BLE");
+        brs.put("<=","BG");
+        brs.put(">=","BL");
+        brs.put("==","BNE");
+        brs.put("!=","BE");
         this.semanticErrorCheck = semanticErrorCheck;
     }
 
@@ -31,7 +39,7 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
         }
         showText("******************************************************",TextDisplayer.COMPILERTEXTS);
         GenerateOC gOc = new GenerateOC(quads);
-        gOc.generateCode();
+        instructions = gOc.generateCode();
     }
 
     @Override public void exitAffect(TinyLangageSIIParser.AffectContext ctx)
@@ -93,7 +101,7 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
         showText("exitComp start: " +" head of stack is " + stack.getLast(),TextDisplayer.RANDOMCOMMENTS);
         String t1 = stack.removeLast();
         String t2 = stack.removeLast();
-        saveCondition = quads.addQuad((ctx.op().getText().compareTo(">") == 0)?"BLE":"BGE",t2,t1,"");
+        saveCondition = quads.addQuad(getBR(ctx.op().getText()),t2,t1,"");
         showText("exitComp adding quad " + quads.getQuad(quads.size()-1),TextDisplayer.RANDOMCOMMENTS);
 
     }
@@ -114,4 +122,16 @@ public class QuadGenerator extends TinyLangageSIIBaseListener
         TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
     }
 
+    private static String getBR(String s)
+    {
+        return brs.get(s);
+    }
+
+    public Quads getQuads() {
+        return quads;
+    }
+
+    public LinkedList<GenerateOC.Instruction> getInstructions() {
+        return instructions;
+    }
 }

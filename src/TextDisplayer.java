@@ -17,8 +17,8 @@ public class TextDisplayer
     public static final int QUADGEN = 2;
     public static final int CODEGEN = 4;
 
-    private int printMask = ERROR|COMPILERTEXTS;
-    private int moduleMask = SEMANTICERR|QUADGEN|CODEGEN;
+    private int printMask = COMPILERTEXTS|ERROR|RANDOMCOMMENTS;
+    private int moduleMask = SEMANTICERR;
 
     private static TextDisplayer _instance = null;
 

@@ -1,13 +1,17 @@
 import org.antlr.v4.gui.*;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.atn.ParserATNSimulator;
 import org.antlr.v4.runtime.atn.PredictionMode;
+import org.antlr.v4.runtime.dfa.DFA;
 
 import javax.print.PrintException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.BitSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Created by ressay on 23/11/17.
@@ -32,29 +36,60 @@ public class myMain extends TestRig
      * while text is getting parsed x)
      * @param parser
      */
-
+    public static SemanticErrorCheck semanticErrorCheck = new SemanticErrorCheck();
+    public static QuadGenerator quadGenerator = new QuadGenerator(semanticErrorCheck);
+    public static String tokenstext = "";
+    public static boolean lexerError = false;
+    public static LinkedList<String> lexerErrors;
     public static void addListeners(Parser parser)
     {
-        SemanticErrorCheck semanticErrorCheck = new SemanticErrorCheck();
-        QuadGenerator quadGenerator = new QuadGenerator(semanticErrorCheck);
+        semanticErrorCheck = new SemanticErrorCheck();
+        quadGenerator = new QuadGenerator(semanticErrorCheck);
+        lexerErrors = new LinkedList<>();
         parser.addParseListener(quadGenerator);
         parser.addParseListener(semanticErrorCheck);
     }
 
     protected void process(Lexer lexer, Class<? extends Parser> parserClass, Parser parser, CharStream input) throws IOException, IllegalAccessException, InvocationTargetException, PrintException {
         lexer.setInputStream(input);
+        lexer.addErrorListener(new ANTLRErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s, RecognitionException e) {
+                lexerError = true;
+                String error = s.substring(27);
+                lexerErrors.add("lexer error at line " + i + " unrecognized token " + error);
+            }
+
+            @Override
+            public void reportAmbiguity(Parser parser, DFA dfa, int i, int i1, boolean b, BitSet bitSet, ATNConfigSet atnConfigSet) {
+
+            }
+
+            @Override
+            public void reportAttemptingFullContext(Parser parser, DFA dfa, int i, int i1, BitSet bitSet, ATNConfigSet atnConfigSet) {
+
+            }
+
+            @Override
+            public void reportContextSensitivity(Parser parser, DFA dfa, int i, int i1, int i2, ATNConfigSet atnConfigSet) {
+
+            }
+        });
         addListeners(parser);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
+
         if(this.showTokens) {
             Iterator i$ = tokens.getTokens().iterator();
 
             while(i$.hasNext()) {
                 Token tok = (Token)i$.next();
                 if(tok instanceof CommonToken) {
-                    System.out.println(((CommonToken)tok).toString(lexer));
+//                    System.out.println(((CommonToken)tok).toString(lexer));
+                    tokenstext += ((CommonToken)tok).toString(lexer)+"\n";
                 } else {
-                    System.out.println(tok.toString());
+//                    System.out.println(tok.toString());
+                    tokenstext += tok.toString()+"\n";
                 }
             }
         }

@@ -1,0 +1,28 @@
+/**
+ * Created by ressay on 30/12/17.
+ */
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.LinkedList;
+
+public class UIpart extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    static String moreInfo;
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("mainWin.fxml"));
+        primaryStage.setTitle("Text editor");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+}

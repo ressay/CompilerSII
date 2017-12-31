@@ -1,4 +1,4 @@
-// Generated from TinyLangageSII.g4 by ANTLR 4.7
+// Generated from /home/ressay/workspace/CompilerSII2/src/TinyLangageSII.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -18,8 +18,9 @@ public class TinyLangageSIIParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, INT=9, 
 		FLOAT=10, SCAN=11, PRINT=12, START=13, IF=14, THEN=15, ELSE=16, ENDIF=17, 
-		ID=18, PLUS=19, MINUS=20, MUL=21, DIV=22, SUP=23, INF=24, INTEGERVAL=25, 
-		FLOATVAL=26, WHITESPACE=27, COMMENTS=28, STR=29;
+		ID=18, PLUS=19, MINUS=20, MUL=21, DIV=22, SUP=23, INF=24, SUPE=25, INFE=26, 
+		EQ=27, DIF=28, INTEGERVAL=29, FLOATVAL=30, WHITESPACE=31, ONELINE=32, 
+		STR=33;
 	public static final int
 		RULE_prog = 0, RULE_declarations = 1, RULE_dec = 2, RULE_type = 3, RULE_vars = 4, 
 		RULE_identifier = 5, RULE_val = 6, RULE_insts = 7, RULE_inst = 8, RULE_affect = 9, 
@@ -35,13 +36,14 @@ public class TinyLangageSIIParser extends Parser {
 	private static final String[] _LITERAL_NAMES = {
 		null, "'compil'", "'('", "')'", "'{'", "'}'", "';'", "','", "'='", "'intCompil'", 
 		"'floatCompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
-		"'else'", "'endif'", null, "'+'", "'-'", "'*'", "'/'", "'>'", "'<'"
+		"'else'", "'endif'", null, "'+'", "'-'", "'*'", "'/'", "'>'", "'<'", "'>='", 
+		"'<='", "'=='", "'!='"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, "INT", "FLOAT", 
 		"SCAN", "PRINT", "START", "IF", "THEN", "ELSE", "ENDIF", "ID", "PLUS", 
-		"MINUS", "MUL", "DIV", "SUP", "INF", "INTEGERVAL", "FLOATVAL", "WHITESPACE", 
-		"COMMENTS", "STR"
+		"MINUS", "MUL", "DIV", "SUP", "INF", "SUPE", "INFE", "EQ", "DIF", "INTEGERVAL", 
+		"FLOATVAL", "WHITESPACE", "ONELINE", "STR"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -1132,6 +1134,10 @@ public class TinyLangageSIIParser extends Parser {
 	public static class OpContext extends ParserRuleContext {
 		public TerminalNode SUP() { return getToken(TinyLangageSIIParser.SUP, 0); }
 		public TerminalNode INF() { return getToken(TinyLangageSIIParser.INF, 0); }
+		public TerminalNode SUPE() { return getToken(TinyLangageSIIParser.SUPE, 0); }
+		public TerminalNode INFE() { return getToken(TinyLangageSIIParser.INFE, 0); }
+		public TerminalNode DIF() { return getToken(TinyLangageSIIParser.DIF, 0); }
+		public TerminalNode EQ() { return getToken(TinyLangageSIIParser.EQ, 0); }
 		public OpContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1155,7 +1161,7 @@ public class TinyLangageSIIParser extends Parser {
 			{
 			setState(151);
 			_la = _input.LA(1);
-			if ( !(_la==SUP || _la==INF) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SUP) | (1L << INF) | (1L << SUPE) | (1L << INFE) | (1L << EQ) | (1L << DIF))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1369,9 +1375,9 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37\u00b0\4\2\t\2"+
-		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00b0\4\2\t\2\4"+
+		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
+		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\2\3\2"+
 		"\3\2\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\5\3=\n\3\3\4\3\4\3\4\3\4\3\5\3\5"+
 		"\3\6\3\6\3\6\3\6\5\6I\n\6\3\7\3\7\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
@@ -1382,11 +1388,11 @@ public class TinyLangageSIIParser extends Parser {
 		"\u0090\n\21\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3\25"+
 		"\3\25\3\25\3\25\3\26\3\26\3\26\3\26\5\26\u00a5\n\26\3\26\3\26\3\27\3\27"+
 		"\3\27\3\27\3\27\5\27\u00ae\n\27\3\27\2\4\26\30\30\2\4\6\b\n\f\16\20\22"+
-		"\24\26\30\32\34\36 \"$&(*,\2\7\3\2\13\f\3\2\33\34\3\2\25\26\3\2\27\30"+
-		"\3\2\31\32\2\u00a6\2.\3\2\2\2\4<\3\2\2\2\6>\3\2\2\2\bB\3\2\2\2\nH\3\2"+
-		"\2\2\fJ\3\2\2\2\16L\3\2\2\2\20U\3\2\2\2\22[\3\2\2\2\24]\3\2\2\2\26a\3"+
-		"\2\2\2\30m\3\2\2\2\32y\3\2\2\2\34{\3\2\2\2\36\u0083\3\2\2\2 \u0085\3\2"+
-		"\2\2\"\u0093\3\2\2\2$\u0095\3\2\2\2&\u0099\3\2\2\2(\u009b\3\2\2\2*\u00a0"+
+		"\24\26\30\32\34\36 \"$&(*,\2\7\3\2\13\f\3\2\37 \3\2\25\26\3\2\27\30\3"+
+		"\2\31\36\2\u00a6\2.\3\2\2\2\4<\3\2\2\2\6>\3\2\2\2\bB\3\2\2\2\nH\3\2\2"+
+		"\2\fJ\3\2\2\2\16L\3\2\2\2\20U\3\2\2\2\22[\3\2\2\2\24]\3\2\2\2\26a\3\2"+
+		"\2\2\30m\3\2\2\2\32y\3\2\2\2\34{\3\2\2\2\36\u0083\3\2\2\2 \u0085\3\2\2"+
+		"\2\"\u0093\3\2\2\2$\u0095\3\2\2\2&\u0099\3\2\2\2(\u009b\3\2\2\2*\u00a0"+
 		"\3\2\2\2,\u00ad\3\2\2\2./\7\3\2\2/\60\7\24\2\2\60\61\7\4\2\2\61\62\7\5"+
 		"\2\2\62\63\7\6\2\2\63\64\5\4\3\2\64\65\7\17\2\2\65\66\5\20\t\2\66\67\7"+
 		"\7\2\2\67\3\3\2\2\289\5\6\4\29:\5\4\3\2:=\3\2\2\2;=\5\6\4\2<8\3\2\2\2"+
@@ -1412,11 +1418,11 @@ public class TinyLangageSIIParser extends Parser {
 		"\u0098\5\26\f\2\u0098%\3\2\2\2\u0099\u009a\t\6\2\2\u009a\'\3\2\2\2\u009b"+
 		"\u009c\7\r\2\2\u009c\u009d\7\4\2\2\u009d\u009e\5,\27\2\u009e\u009f\7\5"+
 		"\2\2\u009f)\3\2\2\2\u00a0\u00a1\7\16\2\2\u00a1\u00a4\7\4\2\2\u00a2\u00a5"+
-		"\7\37\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2"+
-		"\u00a5\u00a6\3\2\2\2\u00a6\u00a7\7\5\2\2\u00a7+\3\2\2\2\u00a8\u00a9\5"+
-		"\f\7\2\u00a9\u00aa\7\t\2\2\u00aa\u00ab\5,\27\2\u00ab\u00ae\3\2\2\2\u00ac"+
-		"\u00ae\5\f\7\2\u00ad\u00a8\3\2\2\2\u00ad\u00ac\3\2\2\2\u00ae-\3\2\2\2"+
-		"\f<HU[jv\u0083\u008f\u00a4\u00ad";
+		"\7#\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2\u00a5"+
+		"\u00a6\3\2\2\2\u00a6\u00a7\7\5\2\2\u00a7+\3\2\2\2\u00a8\u00a9\5\f\7\2"+
+		"\u00a9\u00aa\7\t\2\2\u00aa\u00ab\5,\27\2\u00ab\u00ae\3\2\2\2\u00ac\u00ae"+
+		"\5\f\7\2\u00ad\u00a8\3\2\2\2\u00ad\u00ac\3\2\2\2\u00ae-\3\2\2\2\f<HU["+
+		"jv\u0083\u008f\u00a4\u00ad";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

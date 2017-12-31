@@ -1,5 +1,14 @@
 grammar TinyLangageSII;
 
+@lexer::members {
+@Override
+  public void recover(RecognitionException ex)
+  {
+    System.out.println("something!!");
+    throw new RuntimeException(ex.getMessage());
+  }
+}
+
 prog : 'compil' ID '(' ')' '{' declarations START insts '}' ;
 declarations : (dec declarations)|dec  ;
 dec : type vars ';' ;
@@ -19,11 +28,15 @@ endEx : identifier | '(' exp ')' | val ;
 ifinst : IF '(' comp ')' THEN insts (|el insts)  ENDIF;
 el : ELSE;
 comp : exp op exp ;
-op : SUP | INF ;
+op : SUP | INF | SUPE | INFE | DIF | EQ;
 
 read :  SCAN '(' listID ')' ;
 write : PRINT '(' (STR|listID) ')' ;
 listID : identifier ',' listID | identifier ;
+
+
+
+
 
 INT : 'intCompil';
 FLOAT : 'floatCompil';
@@ -41,6 +54,10 @@ MUL : '*';
 DIV : '/';
 SUP : '>';
 INF : '<';
+SUPE : '>=';
+INFE : '<=';
+EQ : '==';
+DIF : '!=';
 INTEGERVAL : '0'|[+-]?[1-9][0-9]* ;
 FLOATVAL : '0'|[+-]?[1-9][0-9]*('.'[0-9]*) ;
 WHITESPACE : [ \n\t] -> skip;

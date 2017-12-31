@@ -1,4 +1,4 @@
-// Generated from TinyLangageSII.g4 by ANTLR 4.7
+// Generated from /home/ressay/workspace/CompilerSII2/src/TinyLangageSII.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

@@ -6,6 +6,14 @@ import java.util.LinkedList;
  */
 public class GenerateOC
 {
+    static public class Ope
+    {
+        public String str;
+
+        public Ope(String str) {
+            this.str = str;
+        }
+    }
     static public class Instruction
     {
         String inst;
@@ -35,17 +43,22 @@ public class GenerateOC
     HashMap<String,InstGen> map = new HashMap<>();
 
     HashMap<Integer,Integer> mapNumbers = new HashMap<>(); // map quad number to its first instruction number, this ll be helpful in jumps
+    Ope acc = new Ope("");
 
     public GenerateOC(Quads quads) {
-        map.put("=",new InstGen.Mov());
-        map.put("*",new InstGen.Mul());
-        map.put("/",new InstGen.Div());
-        map.put("+",new InstGen.Add());
-        map.put("-",new InstGen.Sub());
-        map.put("BR",new InstGen.Br());
-        map.put("BLE",new InstGen.Ble());
-        map.put("BGE",new InstGen.Bge());
-        map.put("END",new InstGen.End());
+        map.put("=",new InstGen.Mov(this));
+        map.put("*",new InstGen.Mul(this));
+        map.put("/",new InstGen.Div(this));
+        map.put("+",new InstGen.Add(this));
+        map.put("-",new InstGen.Sub(this));
+        map.put("BR",new InstGen.Br(this));
+        map.put("BLE",new InstGen.Ble(this));
+        map.put("BGE",new InstGen.Bge(this));
+        map.put("BG",new InstGen.Bg(this));
+        map.put("BL",new InstGen.Bl(this));
+        map.put("BE",new InstGen.Be(this));
+        map.put("BNE",new InstGen.Bne(this));
+        map.put("END",new InstGen.End(this));
         this.quads = quads;
     }
 
@@ -89,7 +102,7 @@ public class GenerateOC
 
     private boolean isJumpInst(String inst)
     {
-        String[] jmps = {"JMP","JLE","JGE"};
+        String[] jmps = {"JMP","JLE","JGE","JG","JL","JE","JNE"};
         for (int i=0;i<jmps.length;i++)
             if(inst.compareTo(jmps[i]) == 0)
                 return true;
@@ -99,5 +112,43 @@ public class GenerateOC
     private void showText(String text, int typeOfText)
     {
         TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.CODEGEN);
+    }
+
+    public Ope getAcc() {
+        return acc;
+    }
+
+    public void setAcc(String acc) {
+        this.acc.str = acc;
+    }
+
+    public Instruction[] getInAcc(Ope op1,Ope op2)
+    {
+        Instruction[] insts = null;
+        if(op1.str.equals(acc.str))
+            op1.str = "AX";
+        else if(!op2.str.equals("") && op2.str.equals(acc.str))
+        {
+            showText("2nd if " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
+            op2.str = op1.str;
+        }
+        else if(!acc.str.equals(""))
+        {
+            showText("equal non " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
+            insts = new Instruction[2];
+            insts[0] = new Instruction("MOV",acc.str,"AX");
+            insts[1] = new Instruction("MOV","AX",op1.str);
+            acc.str = op1.str;
+        }
+        else
+        {
+            showText("last else " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
+            insts = new Instruction[1];
+            insts[0] = new Instruction("MOV","AX",op1.str);
+            acc.str = op1.str;
+        }
+        showText("end of call " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
+        op1.str = "AX";
+        return insts;
     }
 }

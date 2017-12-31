@@ -18,7 +18,8 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     private TableS table = new TableS();
     private LinkedList<String> errors = new LinkedList<>();
     private HashMap<ParserRuleContext,Integer> types = new HashMap<>();
-
+    private static int typesC[] = {0, INT|FLOAT , INT|FLOAT, INT|FLOAT}; // types compatibility operations 0,int,float
+    private static int typesA[] = {0, INT , INT|FLOAT, INT|FLOAT}; // types compatibility affectation 0,int,float
 
     /**
      * part of grammar which interests us in this section
@@ -95,7 +96,8 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
 
     @Override public void exitAffect(TinyLangageSIIParser.AffectContext ctx)
     {
-        if(!typesCompatible(getCtxType(ctx.exp()),table.getElement(ctx.identifier().getText()).type))
+        showText("1st type is " + getCtxType(ctx.exp()) + " second type is " + table.getElement(ctx.identifier().getText()).type,TextDisplayer.RANDOMCOMMENTS);
+        if(!affectTypesCompatible(table.getElement(ctx.identifier().getText()).type,getCtxType(ctx.exp())))
             errors.add("incompatible types in affectation " + ctx.getText());
         clearMap();
     }
@@ -124,6 +126,7 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
             addCtxType(ctx,getCtxType(ctx.t()));
         else
         {
+            showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.exp().getText() + " type: " + getCtxType(ctx.exp()),TextDisplayer.RANDOMCOMMENTS);
             if(typesCompatible(getCtxType(ctx.t()),getCtxType(ctx.exp())))
                 addCtxType(ctx,getResultingType(getCtxType(ctx.t()),getCtxType(ctx.exp())));
             else {
@@ -159,6 +162,7 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
             addCtxType(ctx,getCtxType(ctx.endEx()));
         else
         {
+            showText(ctx.t().getText() + " type: " + getCtxType(ctx.t()) + " and " + ctx.endEx().getText() + " type: " + getCtxType(ctx.endEx()),TextDisplayer.MOREINFORMATIONS);
             if(typesCompatible(getCtxType(ctx.endEx()),getCtxType(ctx.t())))
                 addCtxType(ctx,getResultingType(getCtxType(ctx.t()),getCtxType(ctx.endEx())));
             else {
@@ -218,7 +222,7 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         // check if ID has been declared
         if(!table.containsElement(ctx.ID().getText()))
         {
-            errors.add("variable " + ctx.ID().getText() + " has not been declared");
+            errors.add("variable " + ctx.ID().getText() + " has not been declared at line " + ctx.ID().getSymbol().getLine());
             table.addElement(new TableS.Element(ctx.ID().getText(),UNDECLARED,INT|FLOAT,1));
             // adding non declared variable in order to not generate same error again
         }
@@ -247,9 +251,12 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
      * @param node
      */
 
+    boolean syntaxError = false;
     @Override public void visitErrorNode(ErrorNode node)
     {
-        errors.add("syntax error " + node.getParent().getText());
+        if(!syntaxError)
+            errors.add("syntax error at line "+node.getSymbol().getLine() + " in ' " + node.getText() + " '");
+        syntaxError = true;
     }
 
 
@@ -275,12 +282,17 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
 
     private static boolean typesCompatible(int t1,int t2)
     {
-        return (t1 & t2) != 0;
+        return (typesC[t1] & t2) != 0;
+    }
+
+    private static boolean affectTypesCompatible(int t1,int t2)
+    {
+        return (typesA[t1] & t2) != 0;
     }
 
     private static int getResultingType(int t1,int t2)
     {
-        return ((t1 & t2 & FLOAT) != 0)?FLOAT:INT;
+        return ((t1 & t2 & INT) != 0)?INT:FLOAT;
     }
 
     private void showText(String text, int typeOfText)
@@ -288,5 +300,7 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
         TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.SEMANTICERR);
     }
 
-
+    public TableS getTable() {
+        return table;
+    }
 }
