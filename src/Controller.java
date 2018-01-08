@@ -71,7 +71,8 @@ public class Controller implements Initializable {
                 myMain.main(params);
                 LinkedList<String> errors1 = myMain.semanticErrorCheck.getErrors();
                 LinkedList<String> errors2 = myMain.lexerErrors;
-                if(errors1.size() == 0 && errors2.size() == 0)
+                LinkedList<String> errors3 = myMain.parserErrors;
+                if(errors1.size() == 0 && errors2.size() == 0 && errors3.size() == 0)
                 {
                         addInfoText("Program compiled without errors\n","-fx-fill: #4F8A10;-fx-font-weight:bold;");
                 }
@@ -82,6 +83,8 @@ public class Controller implements Initializable {
                         addInfoText(errors1.get(i)+"\n","-fx-fill: #CD1010;-fx-font-weight:normal;");
                     for (int i=0;i<errors2.size();i++)
                         addInfoText(errors2.get(i)+"\n","-fx-fill: #CD1010;-fx-font-weight:normal;");
+                    for (int i=0;i<errors3.size();i++)
+                        addInfoText(errors3.get(i)+"\n","-fx-fill: #CD1010;-fx-font-weight:normal;");
                 }
 
                 if(quad.isSelected()) {

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 /**
  * Created by ressay on 23/11/17.
  */
+
 public class QuadGenerator extends TinyLangageSIIBaseListener
 {
 

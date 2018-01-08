@@ -8,6 +8,7 @@ import java.util.LinkedList;
 /**
  * Created by ressay on 23/11/17.
  */
+
 public class SemanticErrorCheck extends TinyLangageSIIBaseListener
 {
     private static final int DECLARED = 1;
@@ -254,9 +255,9 @@ public class SemanticErrorCheck extends TinyLangageSIIBaseListener
     boolean syntaxError = false;
     @Override public void visitErrorNode(ErrorNode node)
     {
-        if(!syntaxError)
-            errors.add("syntax error at line "+node.getSymbol().getLine() + " in ' " + node.getText() + " '");
-        syntaxError = true;
+//        if(!syntaxError)
+//            errors.add("syntax error at line "+node.getSymbol().getLine() + " in ' " + node.getText() + " '");
+//        syntaxError = true;
     }
 
 

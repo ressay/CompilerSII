@@ -125,16 +125,13 @@ public class GenerateOC
     public Instruction[] getInAcc(Ope op1,Ope op2)
     {
         Instruction[] insts = null;
-        if(op1.str.equals(acc.str))
-            op1.str = "AX";
+        if(op1.str.equals(acc.str)) op1.str = "AX";
         else if(!op2.str.equals("") && op2.str.equals(acc.str))
         {
-            showText("2nd if " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
             op2.str = op1.str;
         }
-        else if(!acc.str.equals(""))
+        else if(!acc.str.equals("") && !isNumber(acc.str))
         {
-            showText("equal non " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
             insts = new Instruction[2];
             insts[0] = new Instruction("MOV",acc.str,"AX");
             insts[1] = new Instruction("MOV","AX",op1.str);
@@ -142,13 +139,19 @@ public class GenerateOC
         }
         else
         {
-            showText("last else " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
             insts = new Instruction[1];
             insts[0] = new Instruction("MOV","AX",op1.str);
             acc.str = op1.str;
         }
-        showText("end of call " + op1.str + " " + op2.str + " " + acc.str,TextDisplayer.RANDOMCOMMENTS);
         op1.str = "AX";
         return insts;
+    }
+
+    private boolean isNumber(String s)
+    {
+        for (int i=0;i<s.length();i++)
+            if(s.charAt(i) > '9' || s.charAt(i) < '0')
+                return false;
+        return true;
     }
 }

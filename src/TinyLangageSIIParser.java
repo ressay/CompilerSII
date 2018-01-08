@@ -16,11 +16,11 @@ public class TinyLangageSIIParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, INT=9, 
-		FLOAT=10, SCAN=11, PRINT=12, START=13, IF=14, THEN=15, ELSE=16, ENDIF=17, 
-		ID=18, PLUS=19, MINUS=20, MUL=21, DIV=22, SUP=23, INF=24, SUPE=25, INFE=26, 
-		EQ=27, DIF=28, INTEGERVAL=29, FLOATVAL=30, WHITESPACE=31, ONELINE=32, 
-		STR=33;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, COMPIL=7, INT=8, FLOAT=9, 
+		SCAN=10, PRINT=11, START=12, IF=13, THEN=14, ELSE=15, ENDIF=16, AFF=17, 
+		PLUS=18, MINUS=19, MUL=20, DIV=21, SUP=22, INF=23, SUPE=24, INFE=25, EQ=26, 
+		DIF=27, ID=28, INTEGERVAL=29, FLOATVAL=30, STR=31, WHITESPACE=32, ONELINE=33, 
+		MULLINE=34;
 	public static final int
 		RULE_prog = 0, RULE_declarations = 1, RULE_dec = 2, RULE_type = 3, RULE_vars = 4, 
 		RULE_identifier = 5, RULE_val = 6, RULE_insts = 7, RULE_inst = 8, RULE_affect = 9, 
@@ -34,16 +34,16 @@ public class TinyLangageSIIParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'compil'", "'('", "')'", "'{'", "'}'", "';'", "','", "'='", "'intCompil'", 
+		null, "'('", "')'", "'{'", "'}'", "';'", "','", "'compil'", "'intCompil'", 
 		"'floatCompil'", "'scancompil'", "'printcompil'", "'start'", "'if'", "'then'", 
-		"'else'", "'endif'", null, "'+'", "'-'", "'*'", "'/'", "'>'", "'<'", "'>='", 
-		"'<='", "'=='", "'!='"
+		"'else'", "'endif'", "'='", "'+'", "'-'", "'*'", "'/'", "'>'", "'<'", 
+		"'>='", "'<='", "'=='", "'!='"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, null, null, "INT", "FLOAT", 
-		"SCAN", "PRINT", "START", "IF", "THEN", "ELSE", "ENDIF", "ID", "PLUS", 
-		"MINUS", "MUL", "DIV", "SUP", "INF", "SUPE", "INFE", "EQ", "DIF", "INTEGERVAL", 
-		"FLOATVAL", "WHITESPACE", "ONELINE", "STR"
+		null, null, null, null, null, null, null, "COMPIL", "INT", "FLOAT", "SCAN", 
+		"PRINT", "START", "IF", "THEN", "ELSE", "ENDIF", "AFF", "PLUS", "MINUS", 
+		"MUL", "DIV", "SUP", "INF", "SUPE", "INFE", "EQ", "DIF", "ID", "INTEGERVAL", 
+		"FLOATVAL", "STR", "WHITESPACE", "ONELINE", "MULLINE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -95,6 +95,7 @@ public class TinyLangageSIIParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class ProgContext extends ParserRuleContext {
+		public TerminalNode COMPIL() { return getToken(TinyLangageSIIParser.COMPIL, 0); }
 		public TerminalNode ID() { return getToken(TinyLangageSIIParser.ID, 0); }
 		public DeclarationsContext declarations() {
 			return getRuleContext(DeclarationsContext.class,0);
@@ -124,15 +125,15 @@ public class TinyLangageSIIParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(44);
-			match(T__0);
+			match(COMPIL);
 			setState(45);
 			match(ID);
 			setState(46);
-			match(T__1);
+			match(T__0);
 			setState(47);
-			match(T__2);
+			match(T__1);
 			setState(48);
-			match(T__3);
+			match(T__2);
 			setState(49);
 			declarations();
 			setState(50);
@@ -140,7 +141,7 @@ public class TinyLangageSIIParser extends Parser {
 			setState(51);
 			insts();
 			setState(52);
-			match(T__4);
+			match(T__3);
 			}
 		}
 		catch (RecognitionException re) {
@@ -245,7 +246,7 @@ public class TinyLangageSIIParser extends Parser {
 			setState(61);
 			vars();
 			setState(62);
-			match(T__5);
+			match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -340,7 +341,7 @@ public class TinyLangageSIIParser extends Parser {
 				setState(66);
 				match(ID);
 				setState(67);
-				match(T__6);
+				match(T__5);
 				setState(68);
 				vars();
 				}
@@ -485,7 +486,7 @@ public class TinyLangageSIIParser extends Parser {
 				setState(76);
 				inst();
 				setState(77);
-				match(T__5);
+				match(T__4);
 				setState(78);
 				insts();
 				}
@@ -497,7 +498,7 @@ public class TinyLangageSIIParser extends Parser {
 				setState(80);
 				inst();
 				setState(81);
-				match(T__5);
+				match(T__4);
 				}
 				break;
 			}
@@ -594,6 +595,7 @@ public class TinyLangageSIIParser extends Parser {
 		public IdentifierContext identifier() {
 			return getRuleContext(IdentifierContext.class,0);
 		}
+		public TerminalNode AFF() { return getToken(TinyLangageSIIParser.AFF, 0); }
 		public ExpContext exp() {
 			return getRuleContext(ExpContext.class,0);
 		}
@@ -620,7 +622,7 @@ public class TinyLangageSIIParser extends Parser {
 			setState(91);
 			identifier();
 			setState(92);
-			match(T__7);
+			match(AFF);
 			setState(93);
 			exp(0);
 			}
@@ -930,15 +932,15 @@ public class TinyLangageSIIParser extends Parser {
 				identifier();
 				}
 				break;
-			case T__1:
+			case T__0:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(124);
-				match(T__1);
+				match(T__0);
 				setState(125);
 				exp(0);
 				setState(126);
-				match(T__2);
+				match(T__1);
 				}
 				break;
 			case INTEGERVAL:
@@ -1003,11 +1005,11 @@ public class TinyLangageSIIParser extends Parser {
 			setState(131);
 			match(IF);
 			setState(132);
-			match(T__1);
+			match(T__0);
 			setState(133);
 			comp();
 			setState(134);
-			match(T__2);
+			match(T__1);
 			setState(135);
 			match(THEN);
 			setState(136);
@@ -1210,11 +1212,11 @@ public class TinyLangageSIIParser extends Parser {
 			setState(153);
 			match(SCAN);
 			setState(154);
-			match(T__1);
+			match(T__0);
 			setState(155);
 			listID();
 			setState(156);
-			match(T__2);
+			match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1257,7 +1259,7 @@ public class TinyLangageSIIParser extends Parser {
 			setState(158);
 			match(PRINT);
 			setState(159);
-			match(T__1);
+			match(T__0);
 			setState(162);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
@@ -1277,7 +1279,7 @@ public class TinyLangageSIIParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			setState(164);
-			match(T__2);
+			match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1325,7 +1327,7 @@ public class TinyLangageSIIParser extends Parser {
 				setState(166);
 				identifier();
 				setState(167);
-				match(T__6);
+				match(T__5);
 				setState(168);
 				listID();
 				}
@@ -1375,7 +1377,7 @@ public class TinyLangageSIIParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3#\u00b0\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3$\u00b0\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\2\3\2"+
@@ -1388,39 +1390,39 @@ public class TinyLangageSIIParser extends Parser {
 		"\u0090\n\21\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\24\3\24\3\25\3\25"+
 		"\3\25\3\25\3\25\3\26\3\26\3\26\3\26\5\26\u00a5\n\26\3\26\3\26\3\27\3\27"+
 		"\3\27\3\27\3\27\5\27\u00ae\n\27\3\27\2\4\26\30\30\2\4\6\b\n\f\16\20\22"+
-		"\24\26\30\32\34\36 \"$&(*,\2\7\3\2\13\f\3\2\37 \3\2\25\26\3\2\27\30\3"+
-		"\2\31\36\2\u00a6\2.\3\2\2\2\4<\3\2\2\2\6>\3\2\2\2\bB\3\2\2\2\nH\3\2\2"+
+		"\24\26\30\32\34\36 \"$&(*,\2\7\3\2\n\13\3\2\37 \3\2\24\25\3\2\26\27\3"+
+		"\2\30\35\2\u00a6\2.\3\2\2\2\4<\3\2\2\2\6>\3\2\2\2\bB\3\2\2\2\nH\3\2\2"+
 		"\2\fJ\3\2\2\2\16L\3\2\2\2\20U\3\2\2\2\22[\3\2\2\2\24]\3\2\2\2\26a\3\2"+
 		"\2\2\30m\3\2\2\2\32y\3\2\2\2\34{\3\2\2\2\36\u0083\3\2\2\2 \u0085\3\2\2"+
 		"\2\"\u0093\3\2\2\2$\u0095\3\2\2\2&\u0099\3\2\2\2(\u009b\3\2\2\2*\u00a0"+
-		"\3\2\2\2,\u00ad\3\2\2\2./\7\3\2\2/\60\7\24\2\2\60\61\7\4\2\2\61\62\7\5"+
-		"\2\2\62\63\7\6\2\2\63\64\5\4\3\2\64\65\7\17\2\2\65\66\5\20\t\2\66\67\7"+
-		"\7\2\2\67\3\3\2\2\289\5\6\4\29:\5\4\3\2:=\3\2\2\2;=\5\6\4\2<8\3\2\2\2"+
-		"<;\3\2\2\2=\5\3\2\2\2>?\5\b\5\2?@\5\n\6\2@A\7\b\2\2A\7\3\2\2\2BC\t\2\2"+
-		"\2C\t\3\2\2\2DE\7\24\2\2EF\7\t\2\2FI\5\n\6\2GI\7\24\2\2HD\3\2\2\2HG\3"+
-		"\2\2\2I\13\3\2\2\2JK\7\24\2\2K\r\3\2\2\2LM\t\3\2\2M\17\3\2\2\2NO\5\22"+
-		"\n\2OP\7\b\2\2PQ\5\20\t\2QV\3\2\2\2RS\5\22\n\2ST\7\b\2\2TV\3\2\2\2UN\3"+
+		"\3\2\2\2,\u00ad\3\2\2\2./\7\t\2\2/\60\7\36\2\2\60\61\7\3\2\2\61\62\7\4"+
+		"\2\2\62\63\7\5\2\2\63\64\5\4\3\2\64\65\7\16\2\2\65\66\5\20\t\2\66\67\7"+
+		"\6\2\2\67\3\3\2\2\289\5\6\4\29:\5\4\3\2:=\3\2\2\2;=\5\6\4\2<8\3\2\2\2"+
+		"<;\3\2\2\2=\5\3\2\2\2>?\5\b\5\2?@\5\n\6\2@A\7\7\2\2A\7\3\2\2\2BC\t\2\2"+
+		"\2C\t\3\2\2\2DE\7\36\2\2EF\7\b\2\2FI\5\n\6\2GI\7\36\2\2HD\3\2\2\2HG\3"+
+		"\2\2\2I\13\3\2\2\2JK\7\36\2\2K\r\3\2\2\2LM\t\3\2\2M\17\3\2\2\2NO\5\22"+
+		"\n\2OP\7\7\2\2PQ\5\20\t\2QV\3\2\2\2RS\5\22\n\2ST\7\7\2\2TV\3\2\2\2UN\3"+
 		"\2\2\2UR\3\2\2\2V\21\3\2\2\2W\\\5\24\13\2X\\\5 \21\2Y\\\5(\25\2Z\\\5*"+
 		"\26\2[W\3\2\2\2[X\3\2\2\2[Y\3\2\2\2[Z\3\2\2\2\\\23\3\2\2\2]^\5\f\7\2^"+
-		"_\7\n\2\2_`\5\26\f\2`\25\3\2\2\2ab\b\f\1\2bc\5\30\r\2cj\3\2\2\2de\f\4"+
+		"_\7\23\2\2_`\5\26\f\2`\25\3\2\2\2ab\b\f\1\2bc\5\30\r\2cj\3\2\2\2de\f\4"+
 		"\2\2ef\5\32\16\2fg\5\30\r\2gi\3\2\2\2hd\3\2\2\2il\3\2\2\2jh\3\2\2\2jk"+
 		"\3\2\2\2k\27\3\2\2\2lj\3\2\2\2mn\b\r\1\2no\5\36\20\2ov\3\2\2\2pq\f\4\2"+
 		"\2qr\5\34\17\2rs\5\36\20\2su\3\2\2\2tp\3\2\2\2ux\3\2\2\2vt\3\2\2\2vw\3"+
 		"\2\2\2w\31\3\2\2\2xv\3\2\2\2yz\t\4\2\2z\33\3\2\2\2{|\t\5\2\2|\35\3\2\2"+
-		"\2}\u0084\5\f\7\2~\177\7\4\2\2\177\u0080\5\26\f\2\u0080\u0081\7\5\2\2"+
+		"\2}\u0084\5\f\7\2~\177\7\3\2\2\177\u0080\5\26\f\2\u0080\u0081\7\4\2\2"+
 		"\u0081\u0084\3\2\2\2\u0082\u0084\5\16\b\2\u0083}\3\2\2\2\u0083~\3\2\2"+
-		"\2\u0083\u0082\3\2\2\2\u0084\37\3\2\2\2\u0085\u0086\7\20\2\2\u0086\u0087"+
-		"\7\4\2\2\u0087\u0088\5$\23\2\u0088\u0089\7\5\2\2\u0089\u008a\7\21\2\2"+
+		"\2\u0083\u0082\3\2\2\2\u0084\37\3\2\2\2\u0085\u0086\7\17\2\2\u0086\u0087"+
+		"\7\3\2\2\u0087\u0088\5$\23\2\u0088\u0089\7\4\2\2\u0089\u008a\7\20\2\2"+
 		"\u008a\u008f\5\20\t\2\u008b\u0090\3\2\2\2\u008c\u008d\5\"\22\2\u008d\u008e"+
 		"\5\20\t\2\u008e\u0090\3\2\2\2\u008f\u008b\3\2\2\2\u008f\u008c\3\2\2\2"+
-		"\u0090\u0091\3\2\2\2\u0091\u0092\7\23\2\2\u0092!\3\2\2\2\u0093\u0094\7"+
-		"\22\2\2\u0094#\3\2\2\2\u0095\u0096\5\26\f\2\u0096\u0097\5&\24\2\u0097"+
+		"\u0090\u0091\3\2\2\2\u0091\u0092\7\22\2\2\u0092!\3\2\2\2\u0093\u0094\7"+
+		"\21\2\2\u0094#\3\2\2\2\u0095\u0096\5\26\f\2\u0096\u0097\5&\24\2\u0097"+
 		"\u0098\5\26\f\2\u0098%\3\2\2\2\u0099\u009a\t\6\2\2\u009a\'\3\2\2\2\u009b"+
-		"\u009c\7\r\2\2\u009c\u009d\7\4\2\2\u009d\u009e\5,\27\2\u009e\u009f\7\5"+
-		"\2\2\u009f)\3\2\2\2\u00a0\u00a1\7\16\2\2\u00a1\u00a4\7\4\2\2\u00a2\u00a5"+
-		"\7#\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2\u00a5"+
-		"\u00a6\3\2\2\2\u00a6\u00a7\7\5\2\2\u00a7+\3\2\2\2\u00a8\u00a9\5\f\7\2"+
-		"\u00a9\u00aa\7\t\2\2\u00aa\u00ab\5,\27\2\u00ab\u00ae\3\2\2\2\u00ac\u00ae"+
+		"\u009c\7\f\2\2\u009c\u009d\7\3\2\2\u009d\u009e\5,\27\2\u009e\u009f\7\4"+
+		"\2\2\u009f)\3\2\2\2\u00a0\u00a1\7\r\2\2\u00a1\u00a4\7\3\2\2\u00a2\u00a5"+
+		"\7!\2\2\u00a3\u00a5\5,\27\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2\u00a5"+
+		"\u00a6\3\2\2\2\u00a6\u00a7\7\4\2\2\u00a7+\3\2\2\2\u00a8\u00a9\5\f\7\2"+
+		"\u00a9\u00aa\7\b\2\2\u00aa\u00ab\5,\27\2\u00ab\u00ae\3\2\2\2\u00ac\u00ae"+
 		"\5\f\7\2\u00ad\u00a8\3\2\2\2\u00ad\u00ac\3\2\2\2\u00ae-\3\2\2\2\f<HU["+
 		"jv\u0083\u008f\u00a4\u00ad";
 	public static final ATN _ATN =

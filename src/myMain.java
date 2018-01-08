@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.atn.ParserATNSimulator;
 import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.Interval;
 
 import javax.print.PrintException;
 import java.io.IOException;
@@ -41,17 +42,50 @@ public class myMain extends TestRig
     public static String tokenstext = "";
     public static boolean lexerError = false;
     public static LinkedList<String> lexerErrors;
+    public static boolean parserError = false;
+    public static LinkedList<String> parserErrors;
+
+
     public static void addListeners(Parser parser)
     {
         semanticErrorCheck = new SemanticErrorCheck();
         quadGenerator = new QuadGenerator(semanticErrorCheck);
-        lexerErrors = new LinkedList<>();
         parser.addParseListener(quadGenerator);
         parser.addParseListener(semanticErrorCheck);
+        parser.addErrorListener(new ANTLRErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s, RecognitionException e) {
+                Token token = (Token)o;
+                parserError = true;
+                parserErrors.add("syntaxe error at line "+i);
+            }
+
+            @Override
+            public void reportAmbiguity(Parser parser, DFA dfa, int i, int i1, boolean b, BitSet bitSet, ATNConfigSet atnConfigSet) {
+
+            }
+
+            @Override
+            public void reportAttemptingFullContext(Parser parser, DFA dfa, int i, int i1, BitSet bitSet, ATNConfigSet atnConfigSet) {
+
+            }
+
+            @Override
+            public void reportContextSensitivity(Parser parser, DFA dfa, int i, int i1, int i2, ATNConfigSet atnConfigSet) {
+
+            }
+        });
+        tokenstext = "";
+
+        lexerErrors = new LinkedList<>();
+        lexerError = false;
+        parserErrors = new LinkedList<>();
+        parserError = false;
     }
 
     protected void process(Lexer lexer, Class<? extends Parser> parserClass, Parser parser, CharStream input) throws IOException, IllegalAccessException, InvocationTargetException, PrintException {
         lexer.setInputStream(input);
+        addListeners(parser);
         lexer.addErrorListener(new ANTLRErrorListener() {
             @Override
             public void syntaxError(Recognizer<?, ?> recognizer, Object o, int i, int i1, String s, RecognitionException e) {
@@ -75,7 +109,6 @@ public class myMain extends TestRig
 
             }
         });
-        addListeners(parser);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         tokens.fill();
 
